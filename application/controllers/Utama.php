@@ -151,6 +151,59 @@
 		}
 
 
+		function penjualan(){
+			$data['barang'] = $this->db->get('tbl_barang')->result_array();
+			$data['pelanggan'] = $this->db->get('tbl_pelanggan')->result_array();
+
+			$data['count'] = $this->db->get('tbl_barang')->num_rows();
+
+			$this->load->view('template/header');
+			$this->load->view('apotek/penjualan', $data);
+			$this->load->view('template/footer');
+		}
+
+		function get_harga(){
+
+			$id = $this->input->get('id');
+			if ($id == '') {
+				echo "Rp.0";
+			}else{
+				$harga = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
+				$hasil_harga = "Rp " . number_format($harga['harga'],0,',','.');
+				echo $harga['harga'];
+			}
+		}
+
+		function get_harga2(){
+
+			$id = $this->input->get('id');
+			if ($id == '') {
+				echo "Rp.0";
+			}else{
+				$harga = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
+				$hasil_harga = "Rp " . number_format($harga['harga'],0,',','.');
+				echo $hasil_harga;
+			}
+		}
+
+		function get_alamat(){
+			$id = $this->input->get('id');
+			$alamat = $this->db->get_where('tbl_pelanggan',['id' => $id])->row_array();
+			echo $alamat['alamat'];
+		}
+
+		function add_penjualan(){
+			echo $kode = $this->input->post('kode');
+			echo $tgl = $this->input->post('tgl');
+			echo $pelanggan = $this->input->post('pelanggan');
+			echo $alamat = $this->input->post('alamat');
+			
+			$barang = $this->input->post('barang[]');
+			$qty = $this->input->post('qty[]');
+			var_dump($qty);
+		}
+
+
 	}
 
 ?>
