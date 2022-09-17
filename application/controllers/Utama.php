@@ -158,7 +158,7 @@
 			$data['count'] = $this->db->get('tbl_barang')->num_rows();
 
 			$this->load->view('template/header');
-			$this->load->view('apotek/penjualan', $data);
+			$this->load->view('apotek/penjualan2', $data);
 			$this->load->view('template/footer');
 		}
 
@@ -193,14 +193,91 @@
 		}
 
 		function add_penjualan(){
-			echo $kode = $this->input->post('kode');
-			echo $tgl = $this->input->post('tgl');
-			echo $pelanggan = $this->input->post('pelanggan');
-			echo $alamat = $this->input->post('alamat');
+			$kode = $this->input->post('kode');
+			$tgl = $this->input->post('tgl');
+			$pelanggan = $this->input->post('pelanggan');
+			$alamat = $this->input->post('alamat');
 			
 			$barang = $this->input->post('barang[]');
 			$qty = $this->input->post('qty[]');
-			var_dump($qty);
+			$count = count($barang);
+
+
+			for ($i=0; $i < $count ; $i++) { 
+
+				$id =  $barang[$i];
+				if ($id == null) {
+					// kondisi jika barang tidak dipilih
+				}else{
+
+					$item = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
+					$total_harga = $item['harga'] * $qty[$i];
+					$data = [
+						'kode_penjualan' => $kode,
+						'nama_barang' => $item['nama_barang'],
+						'harga' => $item['harga'],
+						'qty' => $qty[$i],
+						'satuan' => $item['satuan'],
+						'total_harga' => $total_harga,
+					];
+
+				// variabel untuk update jumlah stok ke tbl_barang
+					$update_stok = $item['stok'] - $qty[$i];
+				// end
+
+					// kondisi jika barang dipilih
+					// proses input ke tbl_penjulaan
+					$this->db->insert('tbl_penjualan', $data);
+					// end
+
+					// prosess update stok
+					$this->db->where('id', $id);
+					$this->db->update('tbl_barang', ['stok' => $update_stok]);
+					// end
+
+				}
+			}
+
+			$this->db->select_sum('total_harga');
+			$this->db->select_sum('qty');
+			$order = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->row_array();
+
+			$nama = $this->db->get_where('tbl_pelanggan',['id' => $pelanggan])->row_array();
+
+			$data = [
+				'kode_order' => $kode,
+				'nama' => $nama['nama_pelanggan'],
+				'alamat' => $alamat,
+				'qty_barang' => $order['qty'],
+				'total_harga' => $order['total_harga'],
+				'date' => $tgl,
+			];
+
+			$this->db->insert('tbl_order', $data);
+
+			$this->session->set_flashdata('message', 'swal("Yess!", "Data penjualan berhasil di input", "success" );');
+			redirect('utama/print_penjualan');
+		}
+
+		function print_penjualan(){
+
+			$this->load->view('apotek/print_penjualan');
+		}
+
+		function cetak_penjualan(){
+
+			$this->load->library('dompdf_gen');
+			$this->load->view('apotek/cetak_penjualan');
+
+			$paper_size = 'A4';
+			$orientation ='landscape';
+			$html = $this->output->get_output();
+			$this->dompdf->set_paper($paper_size, $orientation);
+
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Cetak.pdf", array('attachment' => 0));
+
 		}
 
 

@@ -13,171 +13,176 @@
     <div class="card">
       <div class="card-body">
         <h3 style="font-weight: bold;">Penjualan <i class="fas fa-shopping-bag"></i></h3>
+        <a href="<?= base_url('utama/cetak_penjualan') ?>" class="btn btn-danger">Cetak</a>
         <hr>
         <form method="post" action="<?= base_url('utama/add_penjualan') ?>">
           <div class="row">
-
             <div class="col-sm-6">
 
-              <?php 
-              $kode = 'faktur-'.rand(0,10000);
-              ?>
+              <div class="col-sm-6">
 
-              <div class="form-group">
-                <label>Kode Penjualan</label>
-                <input type="text" class="form-control" name="kode" placeholder="" value="<?= $kode ?>">
+                <?php 
+                $kode = 'faktur-'.rand(0,10000);
+                ?>
+
+                <div class="form-group">
+                  <label>Kode Penjualan</label>
+                  <input type="text" class="form-control" name="kode" placeholder="" value="<?= $kode ?>">
+                </div>
+
               </div>
+              <div class="col-sm-6">
 
-            </div>
-            <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Nama Pelanggan</label>
+                  <select class="form-control" name="pelanggan" id="pelanggan" required>
+                    <option>-- Pilih Pelanggan --</option>
+                    <?php foreach ($pelanggan as $data) {  ?>
+                      <option value="<?= $data['id'] ?>"><?= $data['nama_pelanggan'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
 
-              <div class="form-group">
-                <label>Nama Pelanggan</label>
-                <select class="form-control" name="pelanggan" id="pelanggan" required>
-                  <option>-- Pilih Pelanggan --</option>
-                  <?php foreach ($pelanggan as $data) {  ?>
-                    <option value="<?= $data['id'] ?>"><?= $data['nama_pelanggan'] ?></option>
-                  <?php } ?>
-                </select>
               </div>
+              <div class="col-sm-6">
 
-            </div>
-            <div class="col-sm-6">
+                <div class="form-group">
+                 <label>Tanggal</label>
+                 <input type="date" class="form-control" name="tgl" placeholder="" value="<?= date('Y-m-d') ?>" required>
+               </div>
+
+             </div>
+
+             <div class="col-sm-6">
 
               <div class="form-group">
-               <label>Tanggal</label>
-               <input type="date" class="form-control" name="tgl" placeholder="" value="<?= date('Y-m-d') ?>" required>
+               <label>Alamat</label>
+               <textarea class="form-control" name="alamat" id="alamat" required>
+
+               </textarea>
              </div>
 
            </div>
 
-           <div class="col-sm-6">
-
-            <div class="form-group">
-             <label>Alamat</label>
-             <textarea class="form-control" name="alamat" id="alamat" required>
-
-             </textarea>
-           </div>
-
          </div>
 
+         <div class="col-sm-6">
 
 
 
-         <div class="container">
 
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Itam</th>
-                <th>Harga@</th>
-                <th>Qty</th>
-                <th>Total Harga</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-              $no = 1;
-              ?>
-              <?php for ($i=0; $i < $count ; $i++) {  ?>
+           <div class="container">
+
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
                 <tr>
-
-                  <td><?= $no++ ?></td>
-                  <td>
-                    <select class="form-control text-center" id="barang<?= $i ?>" name="barang[]">
-                      <option value="">-- Pilih Barang --</option>
-                      <?php foreach ($barang as $data) { ?>
-                        <option value="<?= $data['id'] ?>"><?= $data['nama_barang'] ?></option>
-                      <?php } ?>
-                    </select>
-                  </td>
-
-                  <td>
-                    <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
-                    <p id="harga2<?= $i ?>">Rp.0</p>
-                  </td>
-                  <td>
-                    <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
-                  </td>
-                  <td>
-                    <p id="totalharga<?= $i ?>">Rp.0</p>
-                  </td>
-
-
+                  <th>No</th>
+                  <th>Itam</th>
+                  <th>Harga@</th>
+                  <th>Qty</th>
+                  <th>Total Harga</th>
                 </tr>
-                <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-                <script>
+              </thead>
+              <tbody>
+                <?php 
+                $no = 1;
+                ?>
+                <?php for ($i=0; $i < $count ; $i++) {  ?>
+                  <tr>
+
+                    <td><?= $no++ ?></td>
+                    <td>
+                      <select class="form-control text-center" id="barang<?= $i ?>" name="barang[]">
+                        <option value="">-- Pilih Barang --</option>
+                        <?php foreach ($barang as $data) { ?>
+                          <option value="<?= $data['id'] ?>"><?= $data['nama_barang'] ?></option>
+                        <?php } ?>
+                      </select>
+                    </td>
+
+                    <td>
+                      <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
+                      <p id="harga2<?= $i ?>">Rp.0</p>
+                    </td>
+                    <td>
+                      <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
+                    </td>
+                    <td>
+                      <p id="totalharga<?= $i ?>">Rp.0</p>
+                    </td>
+
+
+                  </tr>
+                  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+                  <script>
+                    $(document).ready(function(){
+
+                     $("#barang<?= $i ?>").change(function(){
+                      const val = $(this).val();
+                      const url = "<?= base_url('utama/get_harga?id=') ?>"+val;
+                      const url2 = "<?= base_url('utama/get_harga2?id=') ?>"+val;
+                      $("#harga<?= $i ?>").load(url);
+                      $("#harga2<?= $i ?>").load(url2);
+
+                      $("#qty<?= $i ?>").val('0');
+                      $("#totalharga<?= $i ?>").html('Rp.0');
+
+
+                    });
+
+                     $("#qty<?= $i ?>").keyup(function(){
+                      const qty = $(this).val();
+                      const harga = $("#harga<?= $i ?>").html();
+                      const total_harga = qty * harga;
+
+                      const numb = total_harga;
+                      const format = numb.toString().split('').reverse().join('');
+                      const convert = format.match(/\d{1,3}/g);
+                      const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
+
+                      $("#totalharga<?= $i ?>").html(rupiah);
+
+                    });
+
+                   })
+                 </script>
+
+                 <script>
                   $(document).ready(function(){
 
-                   $("#barang<?= $i ?>").change(function(){
-                    const val = $(this).val();
-                    const url = "<?= base_url('utama/get_harga?id=') ?>"+val;
-                    const url2 = "<?= base_url('utama/get_harga2?id=') ?>"+val;
-                    $("#harga<?= $i ?>").load(url);
-                    $("#harga2<?= $i ?>").load(url2);
-
-                    $("#qty<?= $i ?>").val('0');
-                    $("#totalharga<?= $i ?>").html('Rp.0');
-
-
-                  });
-
-                   $("#qty<?= $i ?>").keyup(function(){
-                    const qty = $(this).val();
-                    const harga = $("#harga<?= $i ?>").html();
-                    const total_harga = qty * harga;
-
-                    const numb = total_harga;
-                    const format = numb.toString().split('').reverse().join('');
-                    const convert = format.match(/\d{1,3}/g);
-                    const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
-
-                    $("#totalharga<?= $i ?>").html(rupiah);
-
-                  });
-
-                 })
-               </script>
-
-               <script>
-                $(document).ready(function(){
 
 
 
 
-
-                })
-              </script>
-
-
-            <?php } ?>
+                  })
+                </script>
 
 
-          </tbody>
-          <tfoot>
-            <tr>
-             <th>No</th>
-             <th>Itam</th>
-             <th>Harga@</th>
-             <th>Qty</th>
-             <th>Total Harga</th>
-
-           </tr>
-         </tfoot>
-       </table>
+              <?php } ?>
 
 
+            </tbody>
+            <tfoot>
+              <tr>
+               <th>No</th>
+               <th>Itam</th>
+               <th>Harga@</th>
+               <th>Qty</th>
+               <th>Total Harga</th>
 
+             </tr>
+           </tfoot>
+         </table>
+
+
+
+       </div>
      </div>
    </div>
- </div>
 
- <button class="btn btn-primary btn-block">Cetak Faktur</button>
+   <button class="btn btn-primary btn-block">Cetak Faktur</button>
 
-</form>
-
+ </form>
 
 
 
@@ -186,7 +191,8 @@
 
 
 
-<!-- /.content -->
+
+ <!-- /.content -->
 </div>
 </div>
 </div>
