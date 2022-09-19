@@ -12,62 +12,27 @@
 
     <div class="card">
       <div class="card-body">
-        <h3 style="font-weight: bold;">Data Pelanggan <i class="fas fa-user"></i></h3>
+        <h3 style="font-weight: bold;">Data Penjualan <i class="fas fa-user"></i></h3>
         <hr>
         <div class="row">
-         <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#myModalAdmin">Tambah Pelanggan <i class="fas-fa-print"></i></button>
-         <a href="<?= base_url('utama/cetak_datapelanggan') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Pelanggan <i class="fas-fa-print"></i></a>
+
+         <a href="<?= base_url('utama/cetak_datapenjualan') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas-fa-print"></i></a>
 
 
-         <div class="modal fade" id="myModalAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Form Tambah Pelanggan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <?php 
-                $kode = 'pelanggan-'.rand(0,10000);
-                ?>
-                <form method="post" action="">
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Kode pelanggan</label>
-                    <input type="text" name="kode_pelanggan" class="form-control" id="recipient-name" value="<?= $kode ?>" required="" readonly>
-                  </div>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Nama Pelanggan</label>
-                    <input type="text" name="nama_pelanggan" class="form-control" id="recipient-name" required="" placeholder="Nama pelanggan">
-                  </div>
 
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Alamat</label>
-                    <textarea class="form-control" name="alamat" placeholder="alamat"></textarea>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" name="kirim" class="btn btn-primary" value="Tambah Pelanggan">
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="container">
+         <div class="container">
 
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th>No</th>
-                <th>Kode Pelanggan</th>
-                <th>Nama Pelanggan</th>
-                <th>Alamat</th>
-                <th>Date Create</th>
+                <th>Kode Penjualan</th>
+                <th>Nama Barang</th>
+                <th>Harga Barang</th>
+                <th>Qty</th>
+                <th>Satuan</th>
+                <th>Total Hargas</th>
+                <th>Date</th>
                 <th>Opsi</th>
               </tr>
             </thead>
@@ -75,12 +40,15 @@
               <?php 
               $no = 1;
               ?>
-              <?php foreach ($pelanggan as $data) { ?>
+              <?php foreach ($penjualan as $data) { ?>
                 <tr>
                   <td><?= $no++ ?></td>
-                  <td><?= $data['kode_pelanggan'] ?></td>
-                  <td><?= $data['nama_pelanggan'] ?></td>
-                  <td><?= $data['alamat'] ?></td>
+                  <td><?= $data['kode_penjualan'] ?></td>
+                  <td><?= $data['nama_barang'] ?></td>
+                  <td><?= $data['harga'] ?></td>
+                  <td><?= $data['qty'] ?></td>
+                  <td><?= $data['satuan'] ?></td>
+                  <td><?= $data['total_harga'] ?></td>
                   <td><?= $data['date'] ?></td>
                   <td>
 
@@ -104,7 +72,7 @@
                           </div>
                           <div class="modal-body">
                             Apakah anda ingin menghapus data ini?
-                            <form method="post">
+                            <form method="post" action="<?= base_url('utama/hapus_penjualan') ?>">
                               <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
 
@@ -164,31 +132,34 @@
           </tbody>
           <tfoot>
             <tr>
-              <th>No</th>
-              <th>Kode Pelanggan</th>
-              <th>Nama Pelanggan</th>
-              <th>Alamat</th>
-              <th>Date Creat</th>
-              <th>Opsi</th>
+             <th>No</th>
+             <th>Kode Penjualan</th>
+             <th>Nama Barang</th>
+             <th>Harga Barang</th>
+             <th>Qty</th>
+             <th>Satuan</th>
+             <th>Total Hargas</th>
+             <th>Date</th>
+             <th>Opsi</th>
 
-            </tr>
-          </tfoot>
-        </table>
+           </tr>
+         </tfoot>
+       </table>
 
-      </div>
-
-
-
-
-
+     </div>
 
 
 
 
 
-      <!-- /.content -->
-    </div>
-  </div>
+
+
+
+
+
+     <!-- /.content -->
+   </div>
+ </div>
 </div>
 <!-- /.content-wrapper -->
 

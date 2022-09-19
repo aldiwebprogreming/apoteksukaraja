@@ -9,6 +9,7 @@
 		function __construct()
 		{
 			parent::__construct();
+			$this->load->library('dompdf_gen');
 		}
 
 		function index(){
@@ -162,6 +163,25 @@
 			$this->load->view('template/footer');
 		}
 
+		function data_penjualan(){
+
+			$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+
+			$this->load->view('template/header');
+			$this->load->view('apotek/data_penjualan', $data);
+			$this->load->view('template/footer');
+
+		}
+
+		function hapus_penjualan(){
+
+			$id = $this->input->post('id');
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_penjualan');
+			$this->session->set_flashdata('message', 'swal("Yess!", "Data penjualan berhasil dihapus", "success" );');
+			redirect('utama/data_penjualan');
+		}
+
 		function get_harga(){
 
 			$id = $this->input->get('id');
@@ -256,7 +276,7 @@
 			$this->db->insert('tbl_order', $data);
 
 			$this->session->set_flashdata('message', 'swal("Yess!", "Data penjualan berhasil di input", "success" );');
-			redirect('utama/print_penjualan');
+			redirect("utama/cetak_penjualan?kode=$kode");
 		}
 
 		function print_penjualan(){
@@ -266,21 +286,75 @@
 
 		function cetak_penjualan(){
 
-			$this->load->library('dompdf_gen');
-			$this->load->view('apotek/cetak_penjualan');
+			$kode = $this->input->get('kode');
 
-			$paper_size = 'A4';
-			$orientation ='landscape';
+			$data['order'] = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->result_array();
+			$this->load->view('apotek/cetak_penjualan', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Portrait";
 			$html = $this->output->get_output();
-			$this->dompdf->set_paper($paper_size, $orientation);
 
+			$this->dompdf->set_paper($paper_size, $orientatation);
 			$this->dompdf->load_html($html);
 			$this->dompdf->render();
-			$this->dompdf->stream("Cetak.pdf", array('attachment' => 0));
+			$this->dompdf->stream("Faktur.pdf", array('Attachment' => 0));
+
+		}
+
+		function cetak_databarang(){
+
+			
+
+			$data['barang'] = $this->db->get('tbl_barang')->result_array();
+			$this->load->view('apotek/cetak_databarang', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Laporan_data_barang.pdf", array('Attachment' => 0));
+
+		}
+
+		function cetak_datapelanggan(){
+
+			$data['pelanggan'] = $this->db->get('tbl_pelanggan')->result_array();
+			$this->load->view('apotek/cetak_datapelanggan', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Laporan_data_pelanggan.pdf", array('Attachment' => 0));
+
+
+		}
+
+		function cetak_datapenjualan(){
+
+			$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+			$this->load->view('apotek/cetak_datapenjualan', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Laporan_data_penjualan.pdf", array('Attachment' => 0));
+
 
 		}
 
 
 	}
 
-?>
+	?>

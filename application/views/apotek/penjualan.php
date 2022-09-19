@@ -36,7 +36,7 @@
                 <div class="form-group">
                   <label>Nama Pelanggan</label>
                   <select class="form-control" name="pelanggan" id="pelanggan" required>
-                    <option>-- Pilih Pelanggan --</option>
+                    <option value="" style="font-size: 10px;">-- Pilih Pelanggan --</option>
                     <?php foreach ($pelanggan as $data) {  ?>
                       <option value="<?= $data['id'] ?>"><?= $data['nama_pelanggan'] ?></option>
                     <?php } ?>
