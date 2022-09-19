@@ -62,6 +62,15 @@
                </textarea>
              </div>
 
+             <div class="col-sm-6">
+
+              <div class="form-group">
+               <label>Alamat</label>
+               <textarea class="form-control" name="alamat" id="alamat" required>
+
+               </textarea>
+             </div>
+
            </div>
 
          </div>

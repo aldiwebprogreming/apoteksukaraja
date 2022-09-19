@@ -14,12 +14,20 @@
       <div class="card-body">
         <h3 style="font-weight: bold;">Dashboard <i class="fas fa-home"></i></h3>
         <hr>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Hello <?= $this->session->username ?></strong>, Selamat datang di aplikasi Apotek Sukaraja
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="row">
+
+
 
           <div class="col-sm-4">
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3 id="nof">344</h3>
+                <h3 id="nof"><?= $barang ?></h3>
 
                 <p>Data Berang</p>
               </div>
@@ -33,7 +41,7 @@
           <div class="col-sm-4">
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3 id="nof">44<h3>
+                <h3 id="nof"><?= $pelanggan ?><h3>
 
                   <p>Data Pelanggan</p>
                 </div>
@@ -48,7 +56,7 @@
             <div class="col-sm-4">
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3 id="nof">454</h3>
+                  <h3 id="nof"><?= $penjualan_hariini ?></h3>
 
                   <p>Data Penjualan Hari Ini</p>
                 </div>
@@ -59,9 +67,23 @@
               </div>
             </div>
 
+            <div class="col-sm-4">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3 id="nof"><?= $penjualan_all ?></h3>
+
+                  <p>Data Penjulan All</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-user"></i>
+                </div>
+                <!-- <a href="<?= base_url('utama/role') ?>" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+
 
             <div class="col-sm-4">
-              <div class="small-box bg-danger">
+              <div class="small-box bg-dark">
                 <div class="inner">
                   <h3 id="nof">44</h3>
 
@@ -74,12 +96,42 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h3 id="nof">44</h3>
 
-                  <p>Data User</p>
+            <div class="col-sm-4">
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3 id="nof"><?=  "Rp " . number_format($pemasukan_hariini['total_harga'] ,0,',','.') ?></h3>
+
+                  <p>Total Pemasukan Hari Ini</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-user"></i>
+                </div>
+                <!-- <a href="<?= base_url('utama/role') ?>" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+
+
+            <div class="col-sm-4">
+              <div class="small-box bg-primary">
+                <div class="inner">
+                  <h3 id="nof"><?=  "Rp " . number_format($pemasukan_all['total_harga'] ,0,',','.') ?></h3>
+
+                  <p>Total Pemasukan All</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-user"></i>
+                </div>
+                <!-- <a href="<?= base_url('utama/role') ?>" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <h3 id="nof"><?= $admin ?></h3>
+
+                  <p>Data Admin</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-user"></i>

@@ -12,15 +12,34 @@
 
     <div class="card">
       <div class="card-body">
-        <h3 style="font-weight: bold;">Data Penjualan <i class="fas fa-user"></i></h3>
+        <h3 style="font-weight: bold;">Data Penjualan <?= $tgl ?> <i class="fas fa-user"></i></h3>
         <hr>
         <div class="row">
 
-         <a href="<?= base_url('utama/cetak_datapenjualan') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas-fa-print"></i></a>
+          <?php if (isset($tgl_awal)) { ?>
 
+           <a href="<?= base_url('utama/cetak_datapenjualan?tgl_awal=') ?><?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
 
+         <?php  }else{ ?>
 
-         <div class="container">
+           <a href="<?= base_url('utama/cetak_datapenjualan') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
+
+         <?php  } ?>
+
+         <form class="form-inline" method="post" action="">
+           <div class="form-group mx-sm-3 mb-2">
+
+             <input type="date" class="form-control" name="tgl1">
+           </div>
+           S/D
+           <div class="form-group mx-sm-3 mb-2">
+            <label for="inputPassword2" class="sr-only">Password</label>
+            <input type="date" class="form-control" name="tgl2">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> Cari Data Pertanggal</button>
+        </form>
+
+        <div class="container">
 
           <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -31,7 +50,7 @@
                 <th>Harga Barang</th>
                 <th>Qty</th>
                 <th>Satuan</th>
-                <th>Total Hargas</th>
+                <th>Total Harga</th>
                 <th>Date</th>
                 <th>Opsi</th>
               </tr>
@@ -45,10 +64,10 @@
                   <td><?= $no++ ?></td>
                   <td><?= $data['kode_penjualan'] ?></td>
                   <td><?= $data['nama_barang'] ?></td>
-                  <td><?= $data['harga'] ?></td>
+                  <td><?=  "Rp " . number_format($data['harga'],0,',','.') ?></td>
                   <td><?= $data['qty'] ?></td>
                   <td><?= $data['satuan'] ?></td>
-                  <td><?= $data['total_harga'] ?></td>
+                  <td><?=  "Rp " . number_format($data['total_harga'],0,',','.') ?></td>
                   <td><?= $data['date'] ?></td>
                   <td>
 
@@ -56,9 +75,9 @@
                       Hapus
                     </button>
 
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModaledit<?= $data['id'] ?>">
+                   <!--  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModaledit<?= $data['id'] ?>">
                       Edit
-                    </button>
+                    </button> -->
 
 
                     <div class="modal fade" id="myModal<?= $data['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,17 +150,13 @@
             <?php } ?>
           </tbody>
           <tfoot>
-            <tr>
-             <th>No</th>
-             <th>Kode Penjualan</th>
-             <th>Nama Barang</th>
-             <th>Harga Barang</th>
-             <th>Qty</th>
-             <th>Satuan</th>
-             <th>Total Hargas</th>
-             <th>Date</th>
-             <th>Opsi</th>
+            <tr style="background: orange">
+             <th colspan="3" style="text-align:center;"><?= $no-1 ?> Order</th>
+             <th><?=  "Rp " . number_format($total['harga'],0,',','.') ?></th>
+             <th colspan="2" style="text-align: center;"><?= $total['qty'] ?> QTY</th>
 
+             <th colspan="3">Total Pemasukan : <?=  "Rp " . number_format($total['total_harga'],0,',','.') ?> </th>
+             
            </tr>
          </tfoot>
        </table>

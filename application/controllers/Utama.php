@@ -10,17 +10,68 @@
 		{
 			parent::__construct();
 			$this->load->library('dompdf_gen');
+
+			if ($this->session->username == null) {
+				redirect('login/');
+			}
 		}
 
 		function index(){
 
+			$tgl = date('Y-m-d');
+
+			$data['pelanggan'] = $this->db->get('tbl_pelanggan')->num_rows();
+			$data['admin'] =  $this->db->get('tbl_user')->num_rows();
+
+			$data['penjualan_hariini'] =  $this->db->get_where('tbl_penjualan',['tgl' => $tgl])->num_rows();
+			$data['penjualan_all'] =  $this->db->get_where('tbl_penjualan')->num_rows();
+
+			$this->db->select_sum('total_harga');
+			$data['pemasukan_hariini'] = $this->db->get_where('tbl_penjualan',['tgl' => $tgl])->row_array();
+
+			$this->db->select_sum('total_harga');
+			$data['pemasukan_all'] = $this->db->get('tbl_penjualan')->row_array();
+
+			$data['barang'] = $this->db->get('tbl_barang')->num_rows();
+
 			$this->load->view('template/header');
-			$this->load->view('apotek/index');
+			$this->load->view('apotek/index', $data);
 			$this->load->view('template/footer');
 		}
 
 		function data_barang(){
-			$data['barang'] = $this->db->get('tbl_barang')->result_array();
+
+			if (isset($_POST['tgl1'])) {
+				
+				$tgl_awal = $this->input->post('tgl1');
+				$tgl_akhir = $this->input->post('tgl2');
+
+				$data['tgl_awal'] = $tgl_awal;
+				$data['tgl_akhir'] = $tgl_akhir;
+
+				$data['tgl'] = $tgl_awal. ' S/D '. $tgl_akhir;
+
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['barang'] = $this->db->get('tbl_barang')->result_array();
+
+
+				$this->db->select_sum('stok');
+				$this->db->select_sum('harga');
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_barang')->row_array();
+
+			}else{
+
+				$data['tgl'] = '';
+				$data['barang'] = $this->db->get('tbl_barang')->result_array();
+
+				$this->db->select_sum('stok');
+				$this->db->select_sum('harga');
+				$data['total'] = $this->db->get('tbl_barang')->row_array();
+			}
+
+
+			
 			$this->load->view('template/header');
 			$this->load->view('apotek/data_barang', $data);
 			$this->load->view('template/footer');
@@ -34,6 +85,7 @@
 					'satuan' => $this->input->post('satuan'),
 					'stok' => $this->input->post('stok'),
 					'keterangan' => $this->input->post('keterangan'),
+					'tgl' => date('Y-m-d'),
 
 				];
 
@@ -165,7 +217,38 @@
 
 		function data_penjualan(){
 
-			$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+
+			if (isset($_POST['tgl1'])) {
+
+				$tgl_awal = $this->input->post('tgl1');
+				$tgl_akhir = $this->input->post('tgl2');
+
+				$data['tgl'] = $tgl_awal.' S/D '.$tgl_akhir;
+
+				$data['tgl_awal'] = $this->input->post('tgl1');
+				$data['tgl_akhir'] = $this->input->post('tgl2');
+				
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('harga');
+				$this->db->select_sum('qty');
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+			}else{
+
+				$data['tgl'] = '';
+
+				$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('harga');
+				$this->db->select_sum('qty');
+				$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+			}
 
 			$this->load->view('template/header');
 			$this->load->view('apotek/data_penjualan', $data);
@@ -217,7 +300,7 @@
 			$tgl = $this->input->post('tgl');
 			$pelanggan = $this->input->post('pelanggan');
 			$alamat = $this->input->post('alamat');
-			
+
 			$barang = $this->input->post('barang[]');
 			$qty = $this->input->post('qty[]');
 			$count = count($barang);
@@ -239,6 +322,7 @@
 						'qty' => $qty[$i],
 						'satuan' => $item['satuan'],
 						'total_harga' => $total_harga,
+						'tgl' => date('Y-m-d'),
 					];
 
 				// variabel untuk update jumlah stok ke tbl_barang
@@ -271,6 +355,7 @@
 				'qty_barang' => $order['qty'],
 				'total_harga' => $order['total_harga'],
 				'date' => $tgl,
+				'nb' => $this->input->post('nb'),
 			];
 
 			$this->db->insert('tbl_order', $data);
@@ -288,7 +373,8 @@
 
 			$kode = $this->input->get('kode');
 
-			$data['order'] = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->result_array();
+			$data['pembelian'] = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->result_array();
+			$data['order'] = $this->db->get_where('tbl_order',['kode_order' => $kode])->row_array();
 			$this->load->view('apotek/cetak_penjualan', $data);
 
 			$paper_size = "A4";
@@ -304,9 +390,32 @@
 
 		function cetak_databarang(){
 
-			
+			if (isset($_GET['tgl_awal'])) {
+				
+				$tgl_awal = $this->input->get('tgl_awal');
+				$tgl_akhir = $this->input->get('tgl_akhir');
 
-			$data['barang'] = $this->db->get('tbl_barang')->result_array();
+				$data['tgl'] = $tgl_awal. ' S/D '. $tgl_akhir;
+
+				$this->db->select_sum('stok');
+				$this->db->select_sum('harga');
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_barang')->row_array();
+
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['barang'] = $this->db->get('tbl_barang')->result_array();
+			}else{
+
+				$data['tgl'] = '';
+
+				$this->db->select_sum('stok');
+				$this->db->select_sum('harga');
+				$data['total'] = $this->db->get('tbl_barang')->row_array();
+
+				$data['barang'] = $this->db->get('tbl_barang')->result_array();
+
+			}
+
 			$this->load->view('apotek/cetak_databarang', $data);
 
 			$paper_size = "A4";
@@ -339,7 +448,32 @@
 
 		function cetak_datapenjualan(){
 
-			$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+			if (isset($_GET['tgl_awal'])) {
+
+				$tgl_awal = $this->input->get('tgl_awal');
+				$tgl_akhir = $this->input->get('tgl_akhir');
+
+				$data['tgl'] = $tgl_awal.' S/D '.$tgl_akhir;
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('harga');
+				$this->db->select_sum('qty');
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+			}else{
+
+				$data['tgl'] = '';
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('harga');
+				$this->db->select_sum('qty');
+				$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+				$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+			}
 			$this->load->view('apotek/cetak_datapenjualan', $data);
 
 			$paper_size = "A4";
@@ -357,4 +491,4 @@
 
 	}
 
-	?>
+?>

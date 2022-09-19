@@ -55,114 +55,122 @@
              </div>
            </div>
 
+           <div class="col-sm-12">
+            <div class="form-group">
+             <label>NB</label>
+             <input type="text" name="nb" maxlength="50" class="form-control">
+             <small style="font-style: italic;">Tuliskan keterangan jika dibutuhkan</small>
+           </div>
          </div>
+
        </div>
+     </div>
 
-       <div class="col-sm-8">
-        <table id="example1" class="table table-bordered table-striped">
-          <thead>
+     <div class="col-sm-8">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Itam</th>
+            <th>Harga@</th>
+            <th>Qty</th>
+            <th>Total Harga</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+          $no = 1;
+          ?>
+          <?php for ($i=0; $i < $count ; $i++) {  ?>
             <tr>
-              <th>No</th>
-              <th>Itam</th>
-              <th>Harga@</th>
-              <th>Qty</th>
-              <th>Total Harga</th>
+
+              <td><?= $no++ ?></td>
+              <td>
+                <select class="form-control text-center" id="barang<?= $i ?>" name="barang[]">
+                  <option value="">-- Pilih Barang --</option>
+                  <?php foreach ($barang as $data) { ?>
+                    <option value="<?= $data['id'] ?>"><?= $data['nama_barang'] ?></option>
+                  <?php } ?>
+                </select>
+              </td>
+
+              <td>
+                <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
+                <p id="harga2<?= $i ?>">Rp.0</p>
+              </td>
+              <td>
+                <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
+              </td>
+              <td>
+                <p id="totalharga<?= $i ?>">Rp.0</p>
+              </td>
+
+
             </tr>
-          </thead>
-          <tbody>
-            <?php 
-            $no = 1;
-            ?>
-            <?php for ($i=0; $i < $count ; $i++) {  ?>
-              <tr>
-
-                <td><?= $no++ ?></td>
-                <td>
-                  <select class="form-control text-center" id="barang<?= $i ?>" name="barang[]">
-                    <option value="">-- Pilih Barang --</option>
-                    <?php foreach ($barang as $data) { ?>
-                      <option value="<?= $data['id'] ?>"><?= $data['nama_barang'] ?></option>
-                    <?php } ?>
-                  </select>
-                </td>
-
-                <td>
-                  <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
-                  <p id="harga2<?= $i ?>">Rp.0</p>
-                </td>
-                <td>
-                  <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
-                </td>
-                <td>
-                  <p id="totalharga<?= $i ?>">Rp.0</p>
-                </td>
-
-
-              </tr>
-              <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-              <script>
-                $(document).ready(function(){
-
-                 $("#barang<?= $i ?>").change(function(){
-                  const val = $(this).val();
-                  const url = "<?= base_url('utama/get_harga?id=') ?>"+val;
-                  const url2 = "<?= base_url('utama/get_harga2?id=') ?>"+val;
-                  $("#harga<?= $i ?>").load(url);
-                  $("#harga2<?= $i ?>").load(url2);
-
-                  $("#qty<?= $i ?>").val('0');
-                  $("#totalharga<?= $i ?>").html('Rp.0');
-
-
-                });
-
-                 $("#qty<?= $i ?>").keyup(function(){
-                  const qty = $(this).val();
-                  const harga = $("#harga<?= $i ?>").html();
-                  const total_harga = qty * harga;
-
-                  const numb = total_harga;
-                  const format = numb.toString().split('').reverse().join('');
-                  const convert = format.match(/\d{1,3}/g);
-                  const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
-
-                  $("#totalharga<?= $i ?>").html(rupiah);
-
-                });
-
-               })
-             </script>
-
-             <script>
+            <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+            <script>
               $(document).ready(function(){
 
+               $("#barang<?= $i ?>").change(function(){
+                const val = $(this).val();
+                const url = "<?= base_url('utama/get_harga?id=') ?>"+val;
+                const url2 = "<?= base_url('utama/get_harga2?id=') ?>"+val;
+                $("#harga<?= $i ?>").load(url);
+                $("#harga2<?= $i ?>").load(url2);
+
+                $("#qty<?= $i ?>").val('0');
+                $("#totalharga<?= $i ?>").html('Rp.0');
+
+
+              });
+
+               $("#qty<?= $i ?>").keyup(function(){
+                const qty = $(this).val();
+                const harga = $("#harga<?= $i ?>").html();
+                const total_harga = qty * harga;
+
+                const numb = total_harga;
+                const format = numb.toString().split('').reverse().join('');
+                const convert = format.match(/\d{1,3}/g);
+                const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('');
+
+                $("#totalharga<?= $i ?>").html(rupiah);
+
+              });
+
+             })
+           </script>
+
+           <script>
+            $(document).ready(function(){
 
 
 
 
-              })
-            </script>
+
+            })
+          </script>
 
 
-          <?php } ?>
+        <?php } ?>
 
 
-        </tbody>
-        <tfoot>
-          <tr>
-           <th>No</th>
-           <th>Itam</th>
-           <th>Harga@</th>
-           <th>Qty</th>
-           <th>Total Harga</th>
+      </tbody>
+      <tfoot>
+        <tr>
+         <th>No</th>
+         <th>Itam</th>
+         <th>Harga@</th>
+         <th>Qty</th>
+         <th>Total Harga</th>
 
-         </tr>
-       </tfoot>
-     </table>
-     <button class="btn btn-primary btn-block mt-3">Cetak Faktur</button>
-   </div>
-
+       </tr>
+     </tfoot>
+   </table>
+   <button class="btn btn-primary btn-block mt-3">Cetak Faktur <i class="fas fa-file"></i></button>
  </div>
+
+</div>
 
 
 

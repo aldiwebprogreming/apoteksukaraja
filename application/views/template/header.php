@@ -25,8 +25,8 @@
 
   <!-- Kalender -->
   <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="<?= base_url()  ?>calender/style.css">
-  <link rel="stylesheet" href="<?= base_url()  ?>calender/theme.css">
+  <link rel="stylesheet" href="<?= base_url()  ?>assets_admin/calender/style.css">
+  <link rel="stylesheet" href="<?= base_url()  ?>assets_admin/calender/theme.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <!-- Kalender -->
@@ -198,7 +198,7 @@
               <a href="<?= base_url() ?>utama/pembelian" class="nav-link">
                 <i class="nav-icon fas fa-shopping-bag"></i>
                 <p>
-                  Data Pembelian
+                  Data Penjualan
                   <span class="badge badge-info right"></span>
                 </p>
               </a>
@@ -264,75 +264,95 @@
               </a>
             </li>
 
-
             <li class="nav-item">
-              <a href="<?= base_url() ?>utama/item/" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
+              <a href="<?= base_url() ?>utama/penjualan" class="nav-link">
+                <i class="nav-icon fas fa-cart-plus"></i>
                 <p>
-                  Data Item
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
+                 Penjualan
+                 <span class="badge badge-info right"></span>
+               </p>
+             </a>
+           </li>
+
+           <li class="nav-item">
+            <a href="<?= base_url() ?>utama/data_penjualan" class="nav-link">
+              <i class="nav-icon fas fa-shopping-bag"></i>
+              <p>
+                Data Penjualan
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/data_barang" class="nav-link">
+              <i class="nav-icon fas fa-shopping-basket "></i>
+              <p>
+                Data Barang
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
 
 
 
 
-            <li class="nav-item">
-              <a href="<?= base_url() ?>utama/pembelian" class="nav-link">
-                <i class="nav-icon fas fa-shopping-bag"></i>
-                <p>
-                  Data Pembelian
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/data_pelanggan" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Data Pelanggan
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/data_user" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Data Admin
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
 
 
 
 
+         <!--  <li class="nav-item">
+            <a href="<?= base_url() ?>utama/Role" class="nav-link">
+              <i class="nav-icon fas fa-money-check"></i>
+              <p>
+                Data Role
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
 
-            <li class="nav-item">
-              <a href="<?= base_url() ?>utama/user" class="nav-link">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Data User
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/privilege" class="nav-link">
+              <i class="nav-icon fas fa-wrench"></i>
+              <p>
+                Data Privilege
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
 
-            <li class="nav-item">
-              <a href="<?= base_url() ?>utama/Role" class="nav-link">
-                <i class="nav-icon fas fa-money-check"></i>
-                <p>
-                  Data Role
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/harga" class="nav-link">
+              <i class="nav-icon fas fa-key"></i>
+              <p>
+                Data Harga
+                <span class="badge badge-info right"></span>
+              </p>
+            </a> -->
+          </li>
 
-            <li class="nav-item">
-              <a href="<?= base_url() ?>utama/privilege" class="nav-link">
-                <i class="nav-icon fas fa-wrench"></i>
-                <p>
-                  Data Privilege
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="<?= base_url() ?>utama/harga" class="nav-link">
-                <i class="nav-icon fas fa-key"></i>
-                <p>
-                  Data Harga
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-
-          <?php } ?>
+        <?php } ?>
 
 
 
