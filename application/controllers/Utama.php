@@ -211,7 +211,8 @@
 			$data['count'] = $this->db->get('tbl_barang')->num_rows();
 
 			$this->load->view('template/header');
-			$this->load->view('apotek/penjualan2', $data);
+			// $this->load->view('apotek/penjualan2', $data);
+			$this->load->view('apotek/penjualan_real', $data);
 			$this->load->view('template/footer');
 		}
 

@@ -41,7 +41,7 @@
 					redirect('utama/');
 				}else{
 
-					$this->session->set_flashdata('message', 'swal("Opps!", "password anda salah", "warning" );');
+					$this->session->set_flashdata('message', 'swal("Opps!", "Password anda salah", "warning" );');
 					redirect('login/');
 				}
 
@@ -61,4 +61,4 @@
 		}
 	}
 	
-	?>
+?>
