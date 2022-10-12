@@ -257,6 +257,103 @@
 
 		}
 
+		// function data_penjualan2(){
+
+		// 	if (isset($_POST['tgl1'])) {
+
+		// 		$tgl_awal = $this->input->post('tgl1');
+		// 		$tgl_akhir = $this->input->post('tgl2');
+
+		// 		$data['tgl'] = $tgl_awal.' S/D '.$tgl_akhir;
+
+		// 		$data['tgl_awal'] = $this->input->post('tgl1');
+		// 		$data['tgl_akhir'] = $this->input->post('tgl2');
+
+		// 		$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+		// 		$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+
+
+		// 		$this->db->select_sum('total_harga');
+		// 		$this->db->select_sum('harga');
+		// 		$this->db->select_sum('qty');
+		// 		$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+		// 		$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+		// 	}else{
+
+		// 		$data['tgl'] = '';
+
+		// 		// $data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
+		// 		$data['penjualan'] = $this->db->query("SELECT DISTINCT kode_penjualan, nama_barang FROM tbl_penjualan order by id DESC;")->result_array();
+
+		// 		$this->db->select_sum('total_harga');
+		// 		$this->db->select_sum('harga');
+		// 		$this->db->select_sum('qty');
+		// 		$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+		// 	}
+
+		// 	$this->load->view('template/header');
+		// 	$this->load->view('apotek/data_penjualan2', $data);
+		// 	$this->load->view('template/footer');
+
+		// }
+
+		function data_order(){
+
+			$data['tgl'] = '';
+
+			$data['order'] = $this->db->get('tbl_order')->result_array();
+
+			$this->db->select_sum('total_harga');
+			$this->db->select_sum('qty_barang');
+			$data['total'] = $this->db->get('tbl_order')->row_array();
+
+			$this->load->view('template/header');
+			$this->load->view('apotek/data_order', $data);
+			$this->load->view('template/footer');
+
+		}
+
+		function detail_order($kode){
+			$data['kode'] = $kode;
+			$this->db->select_sum('total_harga');
+			$this->db->select_sum('harga');
+			$this->db->select_sum('qty');
+			$this->db->where('kode_penjualan', $kode);
+			$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+			$data['order'] = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->result_array();
+			$this->load->view('template/header');
+			$this->load->view('apotek/detail_order', $data);
+			$this->load->view('template/footer');
+		}
+
+		function cetak_detailorder($kode){
+
+			$data['kode'] = $kode;
+
+			$this->db->select_sum('total_harga');
+			$this->db->select_sum('harga');
+			$this->db->select_sum('qty');
+			$this->db->where('kode_penjualan', $kode);
+			$data['total'] = $this->db->get('tbl_penjualan')->row_array();
+
+
+			$data['penjualan_detail'] = $this->db->get_where('tbl_penjualan',['kode_penjualan' => $kode])->result_array();
+
+			$this->load->view('apotek/cetak_detailorder', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Laporan_data_pelanggan.pdf", array('Attachment' => 0));
+
+		}
+
 		function hapus_penjualan(){
 
 			$id = $this->input->post('id');
@@ -487,6 +584,15 @@
 			$this->dompdf->stream("Laporan_data_penjualan.pdf", array('Attachment' => 0));
 
 
+		}
+
+		function get_data(){
+
+			$data = $this->db->query("SELECT DISTINCT kode_penjualan, nama_barang FROM tbl_penjualan order by id DESC;")->result_array();
+
+			// $this->db->distinct('nama_barang');
+			// $data = $this->db->get('tbl_penjualan')->result_array();
+			var_dump($data);
 		}
 
 

@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'utama';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = true;
+$route['utama/detail_order/(:any)'] = 'utama/detail_order/$1';
+$route['utama/cetak_datailorder/(:any)'] = 'utama/cetak_detailorder/$1';
