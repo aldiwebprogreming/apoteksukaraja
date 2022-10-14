@@ -15,7 +15,7 @@
 		}
 	</style>
 </head><body>
-	<h2 style="font-weight:bold; margin-bottom: 10px;">Laporang Data Barang <?= $tgl ?></h2>
+	<h4 style="font-weight:bold; margin-bottom: 10px;">Laporang Data Barang <?= $tgl ?></h4>
 	<br>
 	<br>
 

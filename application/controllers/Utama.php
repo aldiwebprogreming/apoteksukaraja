@@ -300,13 +300,36 @@
 
 		function data_order(){
 
-			$data['tgl'] = '';
+			if (isset($_POST['tgl1'])) {
 
-			$data['order'] = $this->db->get('tbl_order')->result_array();
+				$tgl_awal = $this->input->post('tgl1');
+				$tgl_akhir = $this->input->post('tgl2');
 
-			$this->db->select_sum('total_harga');
-			$this->db->select_sum('qty_barang');
-			$data['total'] = $this->db->get('tbl_order')->row_array();
+				$data['tgl'] = $tgl_awal.' S/D '.$tgl_akhir;
+
+				$data['tgl_awal'] = $this->input->post('tgl1');
+				$data['tgl_akhir'] = $this->input->post('tgl2');
+				
+				$this->db->where("date BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['order'] = $this->db->get('tbl_order')->result_array();
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('qty_barang');
+				$this->db->where("date BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_order')->row_array();
+			}else{
+
+
+				$data['tgl'] = '';
+
+				$data['order'] = $this->db->get('tbl_order')->result_array();
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('qty_barang');
+				$data['total'] = $this->db->get('tbl_order')->row_array();
+			}
+
+
 
 			$this->load->view('template/header');
 			$this->load->view('apotek/data_order', $data);
@@ -351,6 +374,45 @@
 			$this->dompdf->load_html($html);
 			$this->dompdf->render();
 			$this->dompdf->stream("Laporan_data_pelanggan.pdf", array('Attachment' => 0));
+
+		}
+
+		function cetak_dataorder(){
+
+			if (isset($_GET['tgl_awal'])) {
+
+				$tgl_awal = $this->input->get('tgl_awal');
+				$tgl_akhir = $this->input->get('tgl_akhir');
+
+				$data['tgl'] = $tgl_awal.' S/D '.$tgl_akhir;
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('qty_barang');
+				$this->db->where("date BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['total'] = $this->db->get('tbl_order')->row_array();
+
+				$this->db->where("date BETWEEN '$tgl_awal' AND '$tgl_akhir'");
+				$data['order'] = $this->db->get('tbl_order')->result_array();
+			}else{
+
+				$data['tgl'] = '';
+
+				$this->db->select_sum('total_harga');
+				$this->db->select_sum('qty_barang');
+				$data['total'] = $this->db->get('tbl_order')->row_array();
+
+				$data['order'] = $this->db->get('tbl_order')->result_array();
+			}
+			$this->load->view('apotek/cetak_dataorder', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Laporan_data_order.pdf", array('Attachment' => 0));
 
 		}
 
@@ -489,7 +551,7 @@
 		function cetak_databarang(){
 
 			if (isset($_GET['tgl_awal'])) {
-				
+
 				$tgl_awal = $this->input->get('tgl_awal');
 				$tgl_akhir = $this->input->get('tgl_akhir');
 
@@ -595,7 +657,38 @@
 			var_dump($data);
 		}
 
+		function sendwa(){
+			$api_key   = '2ad1c6ff045383d38f2ba7f13ad9d225f5794930'; // API KEY Anda
+				$id_device = '6845'; // ID DEVICE yang di SCAN (Sebagai pengirim)
+				$url   = 'https://api.watsap.id/send-message'; // URL API
+				$no_hp = '083138184143'; // No.HP yang dikirim (No.HP Penerima)
+				$pesan = '😁 Halo Terimakasih 🙏'; // Pesan yang dikirim
 
-	}
+				$curl = curl_init();
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_HEADER, 0);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+				curl_setopt($curl, CURLOPT_MAXREDIRS, 10);
+				curl_setopt($curl, CURLOPT_TIMEOUT, 0); // batas waktu response
+				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				curl_setopt($curl, CURLOPT_POST, 1);
 
-?>
+				$data_post = [
+					'id_device' => $id_device,
+					'api-key' => $api_key,
+					'no_hp'   => $no_hp,
+					'pesan'   => $pesan
+				];
+				curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data_post));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+				$response = curl_exec($curl);
+				curl_close($curl);
+				echo $response;
+			}
+
+
+		}
+
+	?>

@@ -18,11 +18,11 @@
 
           <?php if (isset($tgl_awal)) { ?>
 
-           <a href="<?= base_url('utama/cetak_datapenjualan?tgl_awal=') ?><?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
+           <a href="<?= base_url('utama/cetak_dataorder?tgl_awal=') ?><?= $tgl_awal ?>&tgl_akhir=<?= $tgl_akhir ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
 
          <?php  }else{ ?>
 
-           <a href="<?= base_url('utama/cetak_datapenjualan') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
+           <a href="<?= base_url('utama/cetak_dataorder') ?>" target="_blank" class="btn btn-danger mb-3">Cetak Data Penjualan <i class="fas fa-print"></i></a>
 
          <?php  } ?>
 

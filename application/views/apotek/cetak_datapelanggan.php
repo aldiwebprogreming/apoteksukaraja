@@ -8,47 +8,47 @@
 		table, th, td {
 			border: 1px solid black;
 			border-collapse: collapse;
-			},
+		},
 
-			td{
-				text-align: center;
-			}
-		</style>
-	</head><body>
-		<h2 style="font-weight:bold; margin-bottom: 10px;">Laporang Data Pelanggan</h2>
-		<br>
-		<br>
+		td{
+			text-align: center;
+		}
+	</style>
+</head><body>
+	<h4 style="font-weight:bold; margin-bottom: 10px;">Laporang Data Pelanggan</h4>
+	<br>
+	<br>
 
-		<center>
-			<table style="width:80%;">
+	<center>
+		<table style="width:80%;">
 
+			<tr>
+				<th>No</th>
+				<th>Kode Pelanggan</th>
+				<th>Nama Pelanggan</th>
+				<th>Alamat</th>
+				<th>Date</th>
+			</tr>
+			<?php $no = 1; ?>
+			<?php foreach ($pelanggan as $data) { ?>
 				<tr>
-					<th>No</th>
-					<th>Kode Pelanggan</th>
-					<th>Nama Pelanggan</th>
-					<th>Alamat</th>
-					<th>Date</th>
+					<td><?= $no++; ?></td>
+					<td><?= $data['kode_pelanggan'] ?></td>
+					<td><?= $data['nama_pelanggan'] ?></td>
+					<td><?= $data['alamat'] ?></td>
+					<td><?= $data['date'] ?></td>
 				</tr>
-				<?php $no = 1; ?>
-				<?php foreach ($pelanggan as $data) { ?>
-					<tr>
-						<td><?= $no++; ?></td>
-						<td><?= $data['kode_pelanggan'] ?></td>
-						<td><?= $data['nama_pelanggan'] ?></td>
-						<td><?= $data['alamat'] ?></td>
-						<td><?= $data['date'] ?></td>
-					</tr>
-				<?php } ?>
+			<?php } ?>
 
-			</table>
-		</center>
+		</table>
+	</center>
 
-		<div style="position: absolute;top: 95%">
-			<hr >
-			<p style="font-style: italic;">Dicetak pada tanggal <?= date('Y-m-d') ?>.
-			</p>
-		</div>
-	</p>
+	<div style="position: absolute;top: 95%">
+		<hr >
+		<p style="font-style: italic;">Dicetak pada tanggal <?= date('Y-m-d') ?>.
+		</p>
+	</div>
+</p>
 
 
 
