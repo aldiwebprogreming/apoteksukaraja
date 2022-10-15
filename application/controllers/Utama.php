@@ -118,6 +118,58 @@
 		}
 
 
+		function data_produk(){
+			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+			$this->load->view('template/header');
+			$this->load->view('apotek/data_produk', $data);
+			$this->load->view('template/footer');
+		}
+
+		function tambah_produk(){
+
+			$data = [
+				'nama_produk' => $this->input->post('nama_produk'),
+				'qty' => $this->input->post('qty'),
+				'unit' => $this->input->post('unit'),
+				'harga_netto' => $this->input->post('harga_netto'),
+				'diskon' => $this->input->post('diskon'),
+				'harga_jual' => $this->input->post('harga_jual'),
+			];
+
+			$this->db->insert('tbl_produk', $data);
+			$this->session->set_flashdata('message', 'swal("Yess!", "Data produk berhasil ditambah", "success" );');
+			redirect('utama/data_produk');
+
+		}
+
+		function hapus_produk(){
+
+			$id = $this->input->post('id');
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_produk');
+			$this->session->set_flashdata('message', 'swal("Yess!", "Data produk berhasil dihapus", "success" );');
+			redirect('utama/data_produk');
+
+		}
+
+		function cetak_dataproduk(){
+
+			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+			$this->load->view('apotek/cetak_dataproduk', $data);
+
+			$paper_size = "A4";
+			$orientatation = "Portrait";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($paper_size, $orientatation);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Data produk.pdf", array('Attachment' => 0));
+
+
+		}
+
+
 		function data_pelanggan(){
 
 			$data['pelanggan'] = $this->db->get('tbl_pelanggan')->result_array();
@@ -126,7 +178,7 @@
 			$this->load->view('template/footer');
 
 			if (isset($_POST['kirim'])) {
-				
+
 				$data = [
 					'kode_pelanggan' =>$this->input->post('kode_pelanggan'),
 					'nama_pelanggan' => $this->input->post('nama_pelanggan'),
@@ -138,7 +190,7 @@
 				$this->session->set_flashdata('message', 'swal("Yess!", "Data pelanggan berhasil ditambah", "success" );');
 				redirect('utama/data_pelanggan');
 			}elseif (isset($_POST['edit'])) {
-				
+
 				$data = [
 					'kode_pelanggan' =>$this->input->post('kode_pelanggan'),
 					'nama_pelanggan' => $this->input->post('nama_pelanggan'),
@@ -150,7 +202,7 @@
 				$this->session->set_flashdata('message', 'swal("Yess!", "Data barang berhasil diedit", "success" );');
 				redirect('utama/data_pelanggan');
 			}elseif (isset($_POST['hapus'])) {
-				
+
 				$id = $this->input->post('id');
 				$this->db->where('id', $id);
 				$this->db->delete('tbl_pelanggan');
@@ -168,7 +220,7 @@
 			$this->load->view('template/footer');
 
 			if (isset($_POST['kirim'])) {
-				
+
 				$data = [
 					'kode_user' =>$this->input->post('kode_user'),
 					'username' => $this->input->post('username'),
@@ -181,7 +233,7 @@
 				$this->session->set_flashdata('message', 'swal("Yess!", "Data user berhasil ditambah", "success" );');
 				redirect('utama/data_user');
 			}elseif (isset($_POST['edit'])) {
-				
+
 				$data = [
 					'kode_user' =>$this->input->post('kode_user'),
 					'username' => $this->input->post('username'),
@@ -193,7 +245,7 @@
 				$this->session->set_flashdata('message', 'swal("Yess!", "Data user berhasil diedit", "success" );');
 				redirect('utama/data_user');
 			}elseif (isset($_POST['hapus'])) {
-				
+
 				$id = $this->input->post('id');
 				$this->db->where('id', $id);
 				$this->db->delete('tbl_user');
@@ -228,7 +280,7 @@
 
 				$data['tgl_awal'] = $this->input->post('tgl1');
 				$data['tgl_akhir'] = $this->input->post('tgl2');
-				
+
 				$this->db->where("tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'");
 				$data['penjualan'] = $this->db->get('tbl_penjualan')->result_array();
 
@@ -309,7 +361,7 @@
 
 				$data['tgl_awal'] = $this->input->post('tgl1');
 				$data['tgl_akhir'] = $this->input->post('tgl2');
-				
+
 				$this->db->where("date BETWEEN '$tgl_awal' AND '$tgl_akhir'");
 				$data['order'] = $this->db->get('tbl_order')->result_array();
 
