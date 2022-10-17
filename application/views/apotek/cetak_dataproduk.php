@@ -4,7 +4,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-  <style>
+  <!-- <style>
     table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
@@ -13,7 +13,7 @@
     td{
       text-align: center;
     }
-  </style>
+  </style> -->
 </head><body>
   <h4 style="font-weight:bold; margin-bottom: 10px;">Laporang Data Produk</h4>
   <br>
@@ -21,7 +21,6 @@
 
   <center>
     <table style="width:80%;">
-
       <tr>
         <th>No</th>
         <th>Nama Produk</th>
@@ -30,7 +29,6 @@
         <th>Harga Notte</th>
         <th>Diskon</th>
         <th>Harga Jual</th>
-        
       </tr>
       <?php $no = 1; ?>
       <?php foreach ($produk as $data) { ?>
@@ -48,14 +46,10 @@
   </center>
 
   <div style="position: absolute;top: 95%">
-    <hr >
+    <hr>
     <p style="font-style: italic;">Dicetak pada tanggal <?= date('Y-m-d') ?>.
     </p>
   </div>
 </p>
-
-
-
-
 
 </body></html>

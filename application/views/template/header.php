@@ -31,6 +31,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <!-- Kalender -->
 
+ <!--  <link rel="stylesheet" href="<?= base_url()  ?>assets_admin/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?= base_url()  ?>assets_admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
+
   <script src="<?= base_url() ?>assets_admin
     /plugins/jquery/jquery.min.js"></script>
   </head>

@@ -257,7 +257,7 @@
 
 
 		function penjualan(){
-			$data['barang'] = $this->db->get('tbl_barang')->result_array();
+			$data['produk'] = $this->db->get('tbl_produk')->result_array();
 			$data['pelanggan'] = $this->db->get('tbl_pelanggan')->result_array();
 
 			$data['count'] = $this->db->get('tbl_barang')->num_rows();
@@ -483,9 +483,9 @@
 			if ($id == '') {
 				echo "Rp.0";
 			}else{
-				$harga = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
-				$hasil_harga = "Rp " . number_format($harga['harga'],0,',','.');
-				echo $harga['harga'];
+				$harga = $this->db->get_where('tbl_produk',['id' => $id])->row_array();
+				$hasil_harga = "Rp " . number_format($harga['harga_jual'],0,',','.');
+				echo $harga['harga_jual'];
 			}
 		}
 
@@ -495,8 +495,8 @@
 			if ($id == '') {
 				echo "Rp.0";
 			}else{
-				$harga = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
-				$hasil_harga = "Rp " . number_format($harga['harga'],0,',','.');
+				$harga = $this->db->get_where('tbl_produk',['id' => $id])->row_array();
+				$hasil_harga = "Rp " . number_format($harga['harga_jual'],3,',','.');
 				echo $hasil_harga;
 			}
 		}
@@ -709,38 +709,33 @@
 			var_dump($data);
 		}
 
-		function sendwa(){
-			$api_key   = '2ad1c6ff045383d38f2ba7f13ad9d225f5794930'; // API KEY Anda
-				$id_device = '6845'; // ID DEVICE yang di SCAN (Sebagai pengirim)
-				$url   = 'https://api.watsap.id/send-message'; // URL API
-				$no_hp = '083138184143'; // No.HP yang dikirim (No.HP Penerima)
-				$pesan = '😁 Halo Terimakasih 🙏'; // Pesan yang dikirim
+		
 
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_HEADER, 0);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-				curl_setopt($curl, CURLOPT_MAXREDIRS, 10);
-				curl_setopt($curl, CURLOPT_TIMEOUT, 0); // batas waktu response
-				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-				curl_setopt($curl, CURLOPT_POST, 1);
+		function excel(){
 
-				$data_post = [
-					'id_device' => $id_device,
-					'api-key' => $api_key,
-					'no_hp'   => $no_hp,
-					'pesan'   => $pesan
-				];
-				curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data_post));
-				curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-				$response = curl_exec($curl);
-				curl_close($curl);
-				echo $response;
-			}
+			$produk = $this->db->get('tbl_produk', 4)->result_array();
+
+			require(APPPATH. 'PHPExcel2/Classes/PHPExcel.php');
+			require(APPPATH. 'PHPExcel2/Classes/PHPExcel/Writer/Excel2007.php');
+
+
+			$objPHPExcel = new \PHPExcel();
+
+
 
 
 		}
 
-	?>
+
+		function export_excel(){
+			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+			$this->load->view('apotek/data_produk_excel', $data);
+
+			// $this->session->set_flashdata('message', 'swal("Yess!", "Data berhasil di export", "success" );');
+			// redirect("utama/data_produk");
+		}
+
+
+	}
+
+?>

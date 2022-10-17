@@ -87,9 +87,9 @@
               <td><?= $no++ ?></td>
               <td>
                 <select class="form-control text-center" id="barang<?= $i ?>" name="barang[]">
-                  <option value="">-- Pilih Barang --</option>
-                  <?php foreach ($barang as $data) { ?>
-                    <option value="<?= $data['id'] ?>"><?= $data['nama_barang'] ?></option>
+                  <option value="">-- Pilih Produk --</option>
+                  <?php foreach ($produk as $data) { ?>
+                    <option value="<?= $data['id'] ?>"><?= $data['nama_produk'] ?></option>
                   <?php } ?>
                 </select>
               </td>

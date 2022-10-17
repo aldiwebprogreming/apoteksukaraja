@@ -1,5 +1,5 @@
   <footer class="main-footer">
-    
+
   </div>
 </footer>
 </div>
@@ -32,9 +32,14 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url() ?>assets_admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
+<!-- <script src="?php echo base_url() ?>assets_admin/plugins/select2/js/select2.full.min.js"></script> -->
+
 <script src="<?php echo base_url() ?>assets_admin/plugins/summernote/summernote-bs4.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.1/sweetalert2.min.js" integrity="sha512-haPWapEH4geHw14UUzxrXfv7WygtauJoqmcg9f3HRgqE1cr+TSlB8hqsyq0F3i34DUsvq9k3r8uCjJFBmdDE4g==" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 <script>
@@ -75,6 +80,15 @@
     });
   });
 </script>
+
+<script>
+
+  // In your Javascript (external .js resource or <script> tag)
+  $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+  });
+</script>
+
 
 <script src="<?php echo base_url() ?>assets_admin/alert.js"></script>
 <?php echo "<script>".$this->session->flashdata('message')."</script>"?> 

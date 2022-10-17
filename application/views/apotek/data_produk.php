@@ -18,7 +18,7 @@
           <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModalAdmin">Tambah Produk  <i class="fas fa-plus"></i></button>
 
 
-          <a href="<?= base_url('utama/cetak_dataproduk') ?>" target="_blank" class="btn btn-danger ml-2 mb-2">Cetak Data Produk <i class="fas fa-print"></i></a>
+          <a href="<?= base_url('utama/export_excel') ?>" class="btn btn-success ml-2 mb-2">Export <i class="fas fa-print"></i></a>
 
          <!--  <select class="form-control">
             <option>-- Pilih Barang --</option>
