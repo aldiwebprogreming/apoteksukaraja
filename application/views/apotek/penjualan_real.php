@@ -75,7 +75,7 @@
                 <td>
                   <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
                   <!-- <p id="harga2<?= $i ?>">Rp.0</p> -->
-                  <textarea class="form-control" id="harga2<?= $i ?>"></textarea>
+                  <textarea  class="form-control" id="harga2<?= $i ?>"></textarea>
                 </td>
                 <td>
                   <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
@@ -115,6 +115,12 @@
 
 
                   $("#totalharga<?= $i ?>").html(rupiah);
+
+                });
+
+                 $("#harga2<?= $i ?>").keyup(function(){
+
+                  alert('ebunga');
 
                 });
 
