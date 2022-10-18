@@ -507,6 +507,18 @@
 			echo $alamat['alamat'];
 		}
 
+		function get_diskon(){
+
+			$id = $this->input->get('id');
+			if ($id == '') {
+				echo 0;
+			}else{
+				$data = $this->db->get_where('tbl_produk',['id' => $id])->row_array();
+				$diskon = $data['diskon'];
+				echo $diskon;
+			}
+		}
+
 		function add_penjualan(){
 			$kode = $this->input->post('kode');
 			$tgl = $this->input->post('tgl');

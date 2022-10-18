@@ -82,11 +82,10 @@
                   <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>" style="width: 100px;"></p>
                 </td>
                 <td>
-                  <input type="number" name="diskon" value="" id="diskon<?= $i ?>" style="width: 100px;">
+                  <textarea  class="form-control" id="diskon<?= $i ?>" style="width: 100px; height: 30px;"></textarea>
                 </td>
                 <td>
                   <p id="totalharga<?= $i ?>">Rp.0</p>
-
                 </td>
 
 
@@ -100,11 +99,15 @@
                   const val = $(this).val();
                   const url = "<?= base_url('utama/get_harga?id=') ?>"+val;
                   const url2 = "<?= base_url('utama/get_harga2?id=') ?>"+val;
+                  const url_diskon = "<?= base_url('utama/get_diskon?id=') ?>"+val;
+
                   $("#harga<?= $i ?>").load(url);
                   $("#harga2<?= $i ?>").load(url2);
+                  $("#diskon<?= $i ?>").load(url_diskon);
 
                   $("#qty<?= $i ?>").val('0');
                   $("#totalharga<?= $i ?>").html('Rp.0');
+                  // $("#diskon<?= $i ?>").val('Rp.0');
 
 
                 });
@@ -136,12 +139,22 @@
                    
                  });
 
+                 $("#diskon<?= $i ?>").keyup(function(){
+                  const diskon = $(this).val();
+                  const harga = $("#harga2<?= $i ?>").val();
+                  const persen = diskon / 100;
+                  const hasil_potongan = harga * persen;
+                  alert(harga);
+
+                })
+
+
+
                })
              </script>
 
              <script>
               $(document).ready(function(){
-
 
 
 
@@ -161,6 +174,15 @@
          </tr>
        </tfoot>
      </table>
+     <?php 
+
+     $harga = '150000';
+     $diskon = '50';
+     $persen = $diskon / 100;
+     $potongan = $harga * $persen;
+     echo $potongan;
+
+     ?>
      <button class="btn btn-primary btn-block mt-3">Cetak Faktur <i class="fas fa-file"></i></button>
    </form>
 
@@ -169,6 +191,8 @@
 
 </div>
 </div>
+
+
 
 
 
