@@ -54,6 +54,7 @@
               <th>Itam</th>
               <th>Harga@</th>
               <th>Qty</th>
+              <th>Diskon</th>
               <th>Total Harga</th>
             </tr>
           </thead>
@@ -65,7 +66,7 @@
               <tr>
                 <td><?= $no++ ?></td>
                 <td>
-                  <select class="js-example-basic-single form-control text-center" id="barang<?= $i ?>" name="barang[]" style="width: 400px;">
+                  <select class="js-example-basic-single form-control text-center" id="barang<?= $i ?>" name="barang[]" style="width: 300px;">
                     <option value="">-- Pilih Produk --</option>
                     <?php foreach ($produk as $data) { ?>
                       <option value="<?= $data['id'] ?>"><?= $data['nama_produk'] ?></option>
@@ -75,14 +76,19 @@
                 <td>
                   <p id="harga<?= $i ?>" style="display: none;">Rp.0</p>
                   <!-- <p id="harga2<?= $i ?>">Rp.0</p> -->
-                  <textarea  class="form-control" id="harga2<?= $i ?>"></textarea>
+                  <textarea  class="form-control" id="harga2<?= $i ?>" style="width: 100px; height: 30px;"></textarea>
                 </td>
                 <td>
-                  <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>"></p>
+                  <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>" style="width: 100px;"></p>
+                </td>
+                <td>
+                  <input type="number" name="diskon" value="" id="diskon<?= $i ?>" style="width: 100px;">
                 </td>
                 <td>
                   <p id="totalharga<?= $i ?>">Rp.0</p>
+
                 </td>
+
 
               </tr>
 
@@ -105,24 +111,30 @@
 
                  $("#qty<?= $i ?>").keyup(function(){
                   const qty = $(this).val();
-                  const harga = $("#harga<?= $i ?>").html();
+                  const harga = $("#harga2<?= $i ?>").val();
                   const total_harga = qty * harga;
 
                   const numb = total_harga;
                   const format = numb.toString().split('').reverse().join('');
                   const convert = format.match(/\d{1,3}/g);
                   const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('')+".000";
-
-
                   $("#totalharga<?= $i ?>").html(rupiah);
+
 
                 });
 
                  $("#harga2<?= $i ?>").keyup(function(){
-
-                  alert('ebunga');
-
-                });
+                  const harga = $(this).val();
+                  const qty = $("#qty<?= $i ?>").val();
+                   // const harga = $("#harga<?= $i ?>").html();
+                   const total_harga = qty * harga;
+                   const numb = total_harga;
+                   const format = numb.toString().split('').reverse().join('');
+                   const convert = format.match(/\d{1,3}/g);
+                   const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('')+".000";
+                   $("#totalharga<?= $i ?>").html(rupiah);
+                   
+                 });
 
                })
              </script>

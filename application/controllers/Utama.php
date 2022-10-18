@@ -496,7 +496,7 @@
 				echo "Rp.0";
 			}else{
 				$harga = $this->db->get_where('tbl_produk',['id' => $id])->row_array();
-				$hasil_harga = "Rp " . number_format($harga['harga_jual'],3,',','.');
+				$hasil_harga = "" . number_format($harga['harga_jual'],3,'.','.');
 				echo $hasil_harga;
 			}
 		}
