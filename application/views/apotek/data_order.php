@@ -40,49 +40,49 @@
         </form>
 
         <div class="container">
-
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>No</th>
-                <th>Kode Order</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Qty</th>
-                <th>Total Harga</th>
-                <th>NB</th>
-                <th>Date</th>
-                <th>Opsi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-              $no = 1;
-              ?>
-              <?php foreach ($order as $data) { ?>
+          <form method="post" action="<?= base_url('utama/print_order') ?>">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
                 <tr>
-                  <td>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Print</label>
-                    </div>
-                  </td>
-                  <td><?= $no++ ?></td>
-                  <td><?= $data['kode_order'] ?></td>
-                  <td><?= $data['nama'] ?></td>
-                  <td><?= $data['alamat'] ?></td>
-                  <td><?= $data['qty_barang'] ?></td>
-                  <td><?=  "Rp " . number_format($data['total_harga'],0,',','.') ?></td>
-                  <td><?= $data['nb'] ?></td>
-                  <td><?= $data['date'] ?></td>
-                  <td>
+                  <th>#</th>
+                  <th>No</th>
+                  <th>Kode Order</th>
+                  <th>Nama</th>
+                  <th>Alamat</th>
+                  <th>Qty</th>
+                  <th>Total Harga</th>
+                  <th>NB</th>
+                  <th>Date</th>
+                  <th>Opsi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                $no = 1;
+                ?>
+                <?php foreach ($order as $data) { ?>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <input type="checkbox" name="order[]" class="form-check-input" id="exampleCheck1" value="<?= $data['kode_order']?> ">
+                        <label class="form-check-label" for="exampleCheck1">Print</label>
+                      </div>
+                    </td>
+                    <td><?= $no++ ?></td>
+                    <td><?= $data['kode_order'] ?></td>
+                    <td><?= $data['nama'] ?></td>
+                    <td><?= $data['alamat'] ?></td>
+                    <td><?= $data['qty_barang'] ?></td>
+                    <td><?=  "Rp " . number_format($data['total_harga'],0,',','.') ?></td>
+                    <td><?= $data['nb'] ?></td>
+                    <td><?= $data['date'] ?></td>
+                    <td>
 
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal<?= $data['id'] ?>">
-                      Hapus
-                    </button>
+                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal<?= $data['id'] ?>">
+                        Hapus
+                      </button>
 
-                    <a href="<?= base_url('utama/detail_order/') ?><?= $data['kode_order'] ?>" class="btn btn-primary btn-sm">Detail Order</a>
+                      <a href="<?= base_url('utama/detail_order/') ?><?= $data['kode_order'] ?>" class="btn btn-primary btn-sm">Detail Order</a>
 
                    <!--  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModaledit<?= $data['id'] ?>">
                       Edit
@@ -114,63 +114,29 @@
                       </div>
                     </div>
 
-                    <div class="modal fade" id="myModaledit<?= $data['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Pelanggan</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
 
 
-                           <form method="post" action="">
-                            <div class="form-group">
-                              <label for="recipient-name" class="col-form-label">Kode pelanggan</label>
-                              <input type="text" name="kode_pelanggan" class="form-control" id="recipient-name" required="" value="<?= $data['kode_pelanggan'] ?>" readonly>
-                            </div>
-                            <div class="form-group">
-                              <label for="recipient-name" class="col-form-label">Nama Pelanggan</label>
-                              <input type="text" name="nama_pelanggan" class="form-control" id="recipient-name" required="" placeholder="Nama pelanggan" value="<?= $data['nama_pelanggan'] ?>">
-                            </div>
 
-                            <div class="form-group">
-                              <label for="recipient-name" class="col-form-label">Alamat</label>
-                              <textarea class="form-control" name="alamat" placeholder="alamat"><?= $data['alamat'] ?></textarea>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <input type="submit" name="edit" class="btn btn-primary" value="Edit Pelanggan">
-                            </div>
-                          </form>
+                  </td>
+                </tr>
 
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
+              <?php } ?>
+            </tbody>
+            <tfoot>
+              <tr style="background: orange">
+                <th colspan="5" style="text-align:center;"><?= $no-1 ?> Order</th>
+                <th colspan="1" style="text-align: center;"><?= $total['qty_barang'] ?> QTY</th>
+                <th><?=  "Rp " . number_format($total['total_harga'],0,',','.') ?></th>
 
 
-                </td>
+                <th colspan="3">Total Pemasukan : <?=  "Rp " . number_format($total['total_harga'],0,',','.') ?> </th>
+
               </tr>
+            </tfoot>
+          </table>
 
-            <?php } ?>
-          </tbody>
-          <tfoot>
-            <tr style="background: orange">
-              <th colspan="5" style="text-align:center;"><?= $no-1 ?> Order</th>
-              <th colspan="1" style="text-align: center;"><?= $total['qty_barang'] ?> QTY</th>
-              <th><?=  "Rp " . number_format($total['total_harga'],0,',','.') ?></th>
-
-
-              <th colspan="3">Total Pemasukan : <?=  "Rp " . number_format($total['total_harga'],0,',','.') ?> </th>
-
-            </tr>
-          </tfoot>
-        </table>
-
+          <button type="submit" name="print" class="btn btn-primary btn-block mt-3">Print</button>
+        </form>
       </div>
 
 

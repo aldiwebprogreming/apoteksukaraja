@@ -755,6 +755,24 @@
 			// redirect("utama/data_produk");
 		}
 
+		function print_order(){
+
+			$order = $this->input->post('order[]');
+			$data['order'] = $order;
+			$data['count'] = count($order);
+			$this->load->view('apotek/cetak_order_all', $data);
+
+			$customPaper = array(0,0,360,360);
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($customPaper);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("Data_order_all.pdf", array('Attachment' => 0));
+		}
+
 
 	}
 
