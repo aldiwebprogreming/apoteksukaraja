@@ -767,7 +767,7 @@
 			$orientatation = "Landscape";
 			$html = $this->output->get_output();
 
-			$this->dompdf->set_paper($customPaper);
+			$this->dompdf->set_paper($paper_size, $orientatation);
 			$this->dompdf->load_html($html);
 			$this->dompdf->render();
 			$this->dompdf->stream("Data_order_all.pdf", array('Attachment' => 0));
