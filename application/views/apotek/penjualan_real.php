@@ -25,7 +25,7 @@
             </div>
             <div class="col">
              <select class="form-control" name="pelanggan" id="pelanggan" required>
-              <option>-- Pilih Nama Pelanggan --</option>
+              <option value="">-- Pilih Nama Pelanggan --</option>
               <?php foreach ($pelanggan as $data) {  ?>
                 <option value="<?= $data['id'] ?>"><?= $data['nama_pelanggan'] ?></option>
               <?php } ?>
@@ -54,7 +54,7 @@
               <th>Itam</th>
               <th>Harga@</th>
               <th>Qty</th>
-              <th>Diskon</th>
+              <!-- <th>Diskon</th> -->
               <th>Total Harga</th>
             </tr>
           </thead>
@@ -81,11 +81,12 @@
                 <td>
                   <p><input type="number" name="qty[]" class="text-center" id="qty<?= $i ?>" style="width: 100px;"></p>
                 </td>
-                <td>
+                <!-- <td>
                   <textarea  class="form-control" id="diskon<?= $i ?>" style="width: 100px; height: 30px;"></textarea>
-                </td>
+                </td> -->
                 <td>
-                  <p id="totalharga<?= $i ?>">Rp.0</p>
+                  <!-- <p id="totalharga<?= $i ?>">Rp.0</p> -->
+                  <textarea id="totalharga<?= $i ?>"></textarea>
                 </td>
 
 
@@ -106,7 +107,7 @@
                   $("#diskon<?= $i ?>").load(url_diskon);
 
                   $("#qty<?= $i ?>").val('0');
-                  $("#totalharga<?= $i ?>").html('Rp.0');
+                  $("#totalharga<?= $i ?>").val('Rp.0');
                   // $("#diskon<?= $i ?>").val('Rp.0');
 
 
@@ -120,8 +121,8 @@
                   const numb = total_harga;
                   const format = numb.toString().split('').reverse().join('');
                   const convert = format.match(/\d{1,3}/g);
-                  const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('')+".000";
-                  $("#totalharga<?= $i ?>").html(rupiah);
+                  const rupiah = '' + convert.join('.').split('').reverse().join('')+".000";
+                  $("#totalharga<?= $i ?>").val(rupiah);
 
 
                 });
@@ -134,17 +135,17 @@
                    const numb = total_harga;
                    const format = numb.toString().split('').reverse().join('');
                    const convert = format.match(/\d{1,3}/g);
-                   const rupiah = 'Rp ' + convert.join('.').split('').reverse().join('')+".000";
-                   $("#totalharga<?= $i ?>").html(rupiah);
+                   const rupiah = '' + convert.join('.').split('').reverse().join('')+".000";
+                   $("#totalharga<?= $i ?>").val(rupiah);
                    
                  });
 
                  $("#diskon<?= $i ?>").keyup(function(){
+                  const harga = $("#totalharga<?= $i ?>").val();
                   const diskon = $(this).val();
-                  const harga = $("#harga2<?= $i ?>").val();
                   const persen = diskon / 100;
                   const hasil_potongan = harga * persen;
-                  alert(harga);
+                  alert(hasil_potongan);
 
                 })
 

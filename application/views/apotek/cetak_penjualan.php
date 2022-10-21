@@ -64,7 +64,7 @@
 
 		<?php foreach ($pembelian as $data) {  ?>
 			<tr>
-				<td><?= $data['qty'];  ?> <?= $data['satuan'] ?></td>
+				<td><?= $data['qty'];  ?> <!-- <?= $data['satuan'] ?> --></td>
 				<td><?= $data['nama_barang'] ?></td>
 				<td>Rp <?= $data['harga'] ?></td>
 				<td>Rp <?= $data['total_harga'] ?></td>

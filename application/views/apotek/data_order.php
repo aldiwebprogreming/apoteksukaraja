@@ -44,6 +44,7 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
+                <th>#</th>
                 <th>No</th>
                 <th>Kode Order</th>
                 <th>Nama</th>
@@ -61,6 +62,12 @@
               ?>
               <?php foreach ($order as $data) { ?>
                 <tr>
+                  <td>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Print</label>
+                    </div>
+                  </td>
                   <td><?= $no++ ?></td>
                   <td><?= $data['kode_order'] ?></td>
                   <td><?= $data['nama'] ?></td>
@@ -153,7 +160,7 @@
           </tbody>
           <tfoot>
             <tr style="background: orange">
-              <th colspan="4" style="text-align:center;"><?= $no-1 ?> Order</th>
+              <th colspan="5" style="text-align:center;"><?= $no-1 ?> Order</th>
               <th colspan="1" style="text-align: center;"><?= $total['qty_barang'] ?> QTY</th>
               <th><?=  "Rp " . number_format($total['total_harga'],0,',','.') ?></th>
 

@@ -528,6 +528,7 @@
 			$barang = $this->input->post('barang[]');
 			$qty = $this->input->post('qty[]');
 			$count = count($barang);
+			echo $count;
 
 
 			for ($i=0; $i < $count ; $i++) { 
@@ -537,14 +538,14 @@
 					// kondisi jika barang tidak dipilih
 				}else{
 
-					$item = $this->db->get_where('tbl_barang',['id' => $id])->row_array();
-					$total_harga = $item['harga'] * $qty[$i];
+					$item = $this->db->get_where('tbl_produk',['id' => $id])->row_array();
+					$total_harga = $item['harga_jual'] * $qty[$i];
 					$data = [
 						'kode_penjualan' => $kode,
-						'nama_barang' => $item['nama_barang'],
-						'harga' => $item['harga'],
+						'nama_barang' => $item['nama_produk'],
+						'harga' => $item['harga_netto'],
 						'qty' => $qty[$i],
-						'satuan' => $item['satuan'],
+						'satuan' => $item['unit'],
 						'total_harga' => $total_harga,
 						'tgl' => date('Y-m-d'),
 					];
@@ -591,6 +592,13 @@
 		function print_penjualan(){
 
 			$this->load->view('apotek/print_penjualan');
+		}
+
+		function add_penjualan2(){
+
+			$barang = $this->input->post('barang[]');
+			var_dump($barang);
+
 		}
 
 		function cetak_penjualan(){
