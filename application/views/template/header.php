@@ -289,10 +289,10 @@
 
 
           <li class="nav-item">
-            <a href="<?= base_url() ?>utama/data_barang" class="nav-link">
+            <a href="<?= base_url() ?>utama/data_produk" class="nav-link">
               <i class="nav-icon fas fa-shopping-basket "></i>
               <p>
-                Data Barang
+                Data Produk
                 <span class="badge badge-info right"></span>
               </p>
             </a>

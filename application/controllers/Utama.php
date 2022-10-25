@@ -601,6 +601,8 @@
 
 		}
 
+
+
 		function cetak_penjualan(){
 
 			$kode = $this->input->get('kode');
@@ -772,6 +774,16 @@
 			$this->dompdf->render();
 			$this->dompdf->stream("Data_order_all.pdf", array('Attachment' => 0));
 		}
+
+
+		function kasir() {
+
+			$this->load->view('template/header');
+			$this->load->view('apotek/kasir');
+			$this->load->view('template/footer');
+		}
+
+
 
 
 	}
