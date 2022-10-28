@@ -230,9 +230,6 @@
               </a>
             </li>
 
-
-
-
             <li class="nav-item">
               <a href="<?= base_url() ?>utama/pembelian" class="nav-link">
                 <i class="nav-icon fas fa-shopping-bag"></i>
@@ -243,12 +240,11 @@
               </a>
             </li>
 
-
             <li class="nav-item">
               <a href="<?= base_url() ?>utama/user" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Data User
+                  Data   
                   <span class="badge badge-info right"></span>
                 </p>
               </a>
@@ -267,6 +263,8 @@
               </a>
             </li>
 
+
+
             <li class="nav-item">
               <a href="<?= base_url() ?>utama/penjualan" class="nav-link">
                 <i class="nav-icon fas fa-cart-plus"></i>
@@ -278,10 +276,31 @@
            </li>
 
            <li class="nav-item">
+            <a href="<?= base_url() ?>utama/kasir" class="nav-link">
+              <i class="nav-icon fas fa-user-tie"></i>
+              <p>
+                Kasir
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
             <a href="<?= base_url() ?>utama/data_penjualan" class="nav-link">
               <i class="nav-icon fas fa-shopping-bag"></i>
               <p>
                 Data Penjualan
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url() ?>utama/data_penjualan" class="nav-link">
+              <i class="nav-icon fas fa-shopping-bag"></i>
+              <p>
+                Data Order
                 <span class="badge badge-info right"></span>
               </p>
             </a>
@@ -297,8 +316,6 @@
               </p>
             </a>
           </li>
-
-
 
 
           <li class="nav-item">
@@ -322,74 +339,16 @@
             </a>
           </li>
 
-
-
-
-         <!--  <li class="nav-item">
-            <a href="<?= base_url() ?>utama/Role" class="nav-link">
-              <i class="nav-icon fas fa-money-check"></i>
-              <p>
-                Data Role
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="<?= base_url() ?>utama/privilege" class="nav-link">
-              <i class="nav-icon fas fa-wrench"></i>
-              <p>
-                Data Privilege
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="<?= base_url() ?>utama/harga" class="nav-link">
-              <i class="nav-icon fas fa-key"></i>
-              <p>
-                Data Harga
-                <span class="badge badge-info right"></span>
-              </p>
-            </a> -->
-          </li>
-
         <?php } ?>
 
 
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
 
-
-
-
-         <!--  <li class="nav-item">
-            <a href="<?= base_url() ?>admin/data_transaksi_hariini/" class="nav-link">
-              <i class="nav-icon fas fa-pen"></i>
-              <p>
-                Stok Store
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </li> -->
-
-
-
-
-          
-
-
-
-
-          
-
-          
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 

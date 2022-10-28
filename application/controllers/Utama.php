@@ -778,8 +778,10 @@
 
 		function kasir() {
 
+			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+
 			$this->load->view('template/header');
-			$this->load->view('apotek/kasir');
+			$this->load->view('apotek/kasir', $data);
 			$this->load->view('template/footer');
 		}
 

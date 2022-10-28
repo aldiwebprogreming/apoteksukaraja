@@ -18,20 +18,53 @@
 
           <div class="container">
 
+            <div class="row">
+              <div class="col-sm-6">
+               <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Nama Produk</th>
+                    <th>Unit</th>
+                    <th>Harga Jual</th>
+                    <th>Opsi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <form method="post" class="form-data">
+                    <?php 
+                    foreach ($produk as $data) { ?>
+                      <tr>
+
+                        <td><?= $data['nama_produk'] ?></td>
+                        <td><?= $data['unit'] ?></td>
+                        <td><?= $data['harga_jual'] ?></td>
+                        <td>
+                          <input type="hidden" name="id[]" id="id<?= $data['id'] ?>" value="<?= $data['id'] ?>">
+                          <button class="btn btn-primary" id="add">Add</button>
+                        </td>
+                      </tr>
+
+                      <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
+                      <script>
+                        $(document).ready(function(){
+                          $("#add").click(function(){
+                            // var id = $("#id<?= $data['id'] ?>").val();
+                            alert('ebunga');
+                          })
+                        })
+                      </script>
+
+                    <?php } ?>
+                  </form>
+                </tbody>
+              </div>
+            </div>
 
 
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
 
       <!-- /.content -->
     </div>
@@ -44,6 +77,11 @@
   <!-- Control sidebar content goes here -->
 </aside>
 <!-- /.control-sidebar -->
+
+
+
+
+
 
 
 
