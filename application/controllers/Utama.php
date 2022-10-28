@@ -787,7 +787,19 @@
 
 		function add_keranjang(){
 
-			echo "Hello";
+			$id = $this->input->get('id');
+			$get = $this->db->get_where('tbl_produk', ['id' => $id])->row_array();
+
+			$data = [
+				'nama_barang' => $get['nama_barang'],
+				'harga' => $get['harga_jual'],
+				'qty' => $get['qty'],
+				'harga_total' => '',
+				'total' => ''
+			];
+
+			$this->db->insert('tbl_order_kasir', $data);
+			echo "success";
 		}
 
 

@@ -50,7 +50,7 @@
                         $(document).ready(function(){
                           $("#add<?= $data['id'] ?>").click(function(){
                             var id = $("#id<?= $data['id'] ?>").val();
-                            url = <?= base_url("utama/add_keranjang?id=") ?>+id;
+                            url = "<?= base_url('utama/add_keranjang?id=') ?>"+id;
                             $("#tampil-cart").load(url);
                           })
                         })
@@ -62,7 +62,7 @@
             </div>
             <div class="col-sm-6">
               <div id="tampil-cart">
-                
+
               </div>
             </div>
           </div>
