@@ -785,6 +785,11 @@
 			$this->load->view('template/footer');
 		}
 
+		function add_keranjang(){
+
+			echo "Hello";
+		}
+
 
 
 

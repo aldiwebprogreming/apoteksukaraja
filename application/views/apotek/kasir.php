@@ -2,6 +2,8 @@
 
 
 <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -39,24 +41,40 @@
                         <td><?= $data['unit'] ?></td>
                         <td><?= $data['harga_jual'] ?></td>
                         <td>
-                          <input type="hidden" name="id[]" id="id" value="<?= $data['id'] ?>">
-                          <button class="btn btn-primary" id="add">Add</button>
+                          <input type="hidden" name="id[]" id="id<?= $data['id'] ?>" value="<?= $data['id'] ?>">
+                          <button class="btn btn-primary" id="add<?= $data['id'] ?>">Add</button>
                         </td>
                       </tr>
+
+                      <script>
+                        $(document).ready(function(){
+                          $("#add<?= $data['id'] ?>").click(function(){
+                            var id = $("#id<?= $data['id'] ?>").val();
+                            url = <?= base_url("utama/add_keranjang?id=") ?>+id;
+                            $("#tampil-cart").load(url);
+                          })
+                        })
+                      </script>
                     <?php } ?>
                   </form>
                 </tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <div id="tampil-cart">
+                
               </div>
             </div>
-
-
           </div>
+
+
         </div>
       </div>
-
-      <!-- /.content -->
     </div>
+
+    <!-- /.content -->
   </div>
+</div>
 </div>
 <!-- /.content-wrapper -->
 
@@ -66,7 +84,6 @@
 </aside>
 <!-- /.control-sidebar -->
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
 
 
 
