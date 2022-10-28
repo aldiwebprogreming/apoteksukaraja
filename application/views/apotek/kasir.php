@@ -39,22 +39,10 @@
                         <td><?= $data['unit'] ?></td>
                         <td><?= $data['harga_jual'] ?></td>
                         <td>
-                          <input type="hidden" name="id[]" id="id<?= $data['id'] ?>" value="<?= $data['id'] ?>">
+                          <input type="hidden" name="id[]" id="id" value="<?= $data['id'] ?>">
                           <button class="btn btn-primary" id="add">Add</button>
                         </td>
                       </tr>
-
-                      <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-
-                      <script>
-                        $(document).ready(function(){
-                          $("#add").click(function(){
-                            // var id = $("#id<?= $data['id'] ?>").val();
-                            alert('ebunga');
-                          })
-                        })
-                      </script>
-
                     <?php } ?>
                   </form>
                 </tbody>
@@ -78,6 +66,7 @@
 </aside>
 <!-- /.control-sidebar -->
 
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
 
 
 
