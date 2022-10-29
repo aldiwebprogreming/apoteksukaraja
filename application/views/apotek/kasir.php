@@ -26,8 +26,8 @@
                 <thead>
                   <tr>
                     <th>Nama Produk</th>
-                    <th>Unit</th>
                     <th>Harga Jual</th>
+                    <th>Qty</th>
                     <th>Opsi</th>
                   </tr>
                 </thead>
@@ -38,8 +38,8 @@
                       <tr>
 
                         <td><?= $data['nama_produk'] ?></td>
-                        <td><?= $data['unit'] ?></td>
                         <td><?= $data['harga_jual'] ?></td>
+                        <td><input type="number" name="qty[]" id="qty<?= $data['id'] ?>" value="1" class="form-control"></td>
                         <td>
                           <input type="hidden" name="id[]" id="id<?= $data['id'] ?>" value="<?= $data['id'] ?>">
                           <button class="btn btn-primary" id="add<?= $data['id'] ?>">Add</button>
@@ -50,7 +50,8 @@
                         $(document).ready(function(){
                           $("#add<?= $data['id'] ?>").click(function(){
                             var id = $("#id<?= $data['id'] ?>").val();
-                            url = "<?= base_url('utama/add_keranjang?id=') ?>"+id;
+                            var qty = $("#qty<?= $data['id'] ?>").val();
+                            url = "<?= base_url('utama/add_keranjang?id=') ?>"+id+"&&qty="+qty;
                             $("#tampil-cart").load(url);
                           })
                         })

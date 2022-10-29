@@ -779,6 +779,12 @@
 		function kasir() {
 
 			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+			$kode = rand(0,1000);
+			$kode = [
+				'kode' => rand(0,1000),
+			];
+
+			$this->session->set_userdata($kode);
 
 			$this->load->view('template/header');
 			$this->load->view('apotek/kasir', $data);
@@ -788,18 +794,52 @@
 		function add_keranjang(){
 
 			$id = $this->input->get('id');
+			$qty = $this->input->get('qty');
 			$get = $this->db->get_where('tbl_produk', ['id' => $id])->row_array();
+			
+			$total_harga = $get['harga_jual'] * $qty;
+
+			
+
 
 			$data = [
-				'nama_barang' => $get['nama_barang'],
+				'kode' => $this->session->kode,
+				'nama_barang' => $get['nama_produk'],
 				'harga' => $get['harga_jual'],
-				'qty' => $get['qty'],
-				'harga_total' => '',
+				'qty' => $qty,
+				'harga_total' => $total_harga.'000',
 				'total' => ''
 			];
 
 			$this->db->insert('tbl_order_kasir', $data);
-			echo "success";
+			$data['list'] = $this->db->get_where('tbl_order_kasir',['kode' => $this->session->kode])->result_array();
+
+			$this->db->select_sum('harga_total');
+			$data['total'] = $this->db->get_where('tbl_order_kasir',['kode' => $this->session->kode])->row_array();
+
+			$this->load->view('apotek/list_kasir', $data);
+		}
+
+		function cetak_bukti_kasir(){
+
+			$kode = $this->input->get('kode');
+
+			$this->db->select_sum('harga_total');
+			$data['total'] = $this->db->get_where('tbl_order_kasir',['kode' => $kode])->row_array();
+
+
+			$data['list'] = $this->db->get_where('tbl_order_kasir',['kode' => $kode])->result_array();
+			$this->load->view('apotek/cetak_order_kasir', $data);
+
+			$customPaper = array(0,0,260,400);
+			$paper_size = "A4";
+			$orientatation = "Landscape";
+			$html = $this->output->get_output();
+
+			$this->dompdf->set_paper($customPaper);
+			$this->dompdf->load_html($html);
+			$this->dompdf->render();
+			$this->dompdf->stream("cetak_order_kasir.pdf", array('Attachment' => 0));
 		}
 
 
