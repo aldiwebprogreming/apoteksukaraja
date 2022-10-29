@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2022 at 11:30 AM
+-- Generation Time: Oct 29, 2022 at 08:53 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -44,7 +44,7 @@ CREATE TABLE `tbl_barang` (
 --
 
 INSERT INTO `tbl_barang` (`id`, `kode_barang`, `nama_barang`, `harga`, `satuan`, `stok`, `keterangan`, `tgl`, `date`) VALUES
-(4, 'produk-3770', 'Komik', '2000', 'Saset', '2', 'obat batuk', '2022-09-18', '2022-09-19 09:36:14'),
+(4, 'produk-3770', 'Komik', '2000', 'Saset', '-2', 'obat batuk', '2022-09-18', '2022-10-21 06:33:45'),
 (5, 'produk-8553', 'Promah', '20000', 'Box', '21', 'tidak ada', '2022-09-18', '2022-10-12 02:27:46'),
 (6, 'produk-5727', 'Obat Demam', '120000', 'Btl', '530', 'tidak ada', '2022-09-19', '2022-09-19 07:37:44'),
 (7, 'produk-8863', 'Misagrip', '4000', 'Box', '45', 'tidak ada', '2022-09-19', '2022-09-19 09:30:43');
@@ -76,7 +76,47 @@ INSERT INTO `tbl_order` (`id`, `kode_order`, `nama`, `alamat`, `qty_barang`, `to
 (4, 'faktur-3382', 'Aldi', 'Stabat', '2', '4000', '2022-09-19', '', '2022-09-19 01:38:17'),
 (5, 'faktur-3711', 'Davin', 'Binjai', '9', '308000', '2022-09-19', 'Tidak ad', '2022-09-19 03:16:01'),
 (6, 'faktur-4928', 'Davin', 'tytytyt', '10', '110000', '2022-09-19', '', '2022-09-19 09:36:14'),
-(7, 'faktur-5487', 'Aldi', 'Stabat', '3', '60000', '2022-10-12', 'Tidak ada', '2022-10-12 02:27:46');
+(7, 'faktur-5487', 'Aldi', 'Stabat', '3', '60000', '2022-10-12', 'Tidak ada', '2022-10-12 02:27:46'),
+(8, 'faktur-3640', 'Aldi', 'Stabat', '2', '36', '2022-10-21', '', '2022-10-21 06:33:45'),
+(9, 'faktur-6144', 'Aldi', 'Stabat', '3', '355', '2022-10-21', '', '2022-10-21 06:37:47'),
+(10, 'faktur-4961', 'Aldi', 'Stabate', '3', '355', '2022-10-21', 'erer', '2022-10-21 06:39:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_order_kasir`
+--
+
+CREATE TABLE `tbl_order_kasir` (
+  `id` int(11) NOT NULL,
+  `kode` varchar(11) NOT NULL,
+  `nama_barang` varchar(50) NOT NULL,
+  `harga` varchar(15) NOT NULL,
+  `qty` varchar(10) NOT NULL,
+  `harga_total` varchar(20) NOT NULL,
+  `total` varchar(20) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_order_kasir`
+--
+
+INSERT INTO `tbl_order_kasir` (`id`, `kode`, `nama_barang`, `harga`, `qty`, `harga_total`, `total`, `date`) VALUES
+(117, '283', 'ABC SYRUP AFI', '4.000', '1', '4000', '', '2022-10-29 04:18:54'),
+(118, '860', 'ABC SYRUP AFI', '4.000', '1', '4000', '', '2022-10-29 04:27:35'),
+(119, '596', 'ABC SYRUP AFI', '4.000', '1', '4000', '', '2022-10-29 04:38:05'),
+(120, '528', 'ABC SYRUP AFI', '4.000', '4', '16000', '', '2022-10-29 06:41:14'),
+(121, '528', 'ABILIFY 10MG TAB 10,S', '550.000', '2', '1100000', '', '2022-10-29 06:41:16'),
+(122, '528', 'ABIXA 10MG TAB', '950.000', '2', '1900000', '', '2022-10-29 06:41:20'),
+(123, '356', 'ABC SYRUP AFI', '4.000', '1', '4000', '', '2022-10-29 06:49:45'),
+(124, '356', 'ABILIFY 10MG TAB 10,S', '550.000', '1', '550000', '', '2022-10-29 06:49:46'),
+(125, '356', 'ABIXA 10MG TAB', '950.000', '1', '950000', '', '2022-10-29 06:49:47'),
+(126, '356', 'ABOCATH GEA NO.', '4.500', '1', '4.5000', '', '2022-10-29 06:49:48'),
+(127, '356', 'ABOCATH TERUMO 18.20.22.24.', '11.500', '1', '11.5000', '', '2022-10-29 06:49:48'),
+(128, '356', 'ABOCATH TERUMO 18.20.22.24.', '11.500', '1', '11.5000', '', '2022-10-29 06:49:50'),
+(129, '356', 'ACANTHE SUNSCREEN CREM', '76.000', '1', '76000', '', '2022-10-29 06:49:51'),
+(130, '356', 'ACARBOSE 100MG TAB 10\'S', '20.000', '1', '20000', '', '2022-10-29 06:50:04');
 
 -- --------------------------------------------------------
 
@@ -134,7 +174,11 @@ INSERT INTO `tbl_penjualan` (`id`, `kode_penjualan`, `nama_barang`, `harga`, `qt
 (46, 'faktur-4928', 'Promah', '20000', '5', 'Box', '100000', '2022-09-19', '2022-09-19 09:36:14'),
 (47, 'faktur-4928', 'Komik', '2000', '5', 'Saset', '10000', '2022-09-19', '2022-09-19 09:36:14'),
 (48, 'faktur-5487', 'Promah', '20000', '2', 'Box', '40000', '2022-10-12', '2022-10-12 02:27:46'),
-(49, 'faktur-5487', 'Promah', '20000', '1', 'Box', '20000', '2022-10-12', '2022-10-12 02:27:46');
+(49, 'faktur-5487', 'Promah', '20000', '1', 'Box', '20000', '2022-10-12', '2022-10-12 02:27:46'),
+(51, 'faktur-6144', ' FLUIMUCIL EFF 600MG 10\'S', '123.750', '2', '1', '260', '2022-10-21', '2022-10-21 06:37:47'),
+(52, 'faktur-6144', ' GLUCOFLEX 30TAB', '79.365', '1', '1', '95', '2022-10-21', '2022-10-21 06:37:47'),
+(53, 'faktur-4961', ' FLUIMUCIL EFF 600MG 10\'S', '123.750', '2', '1', '260', '2022-10-21', '2022-10-21 06:39:23'),
+(54, 'faktur-4961', ' GLUCOFLEX 30TAB', '79.365', '1', '1', '95', '2022-10-21', '2022-10-21 06:39:23');
 
 -- --------------------------------------------------------
 
@@ -3800,6 +3844,12 @@ ALTER TABLE `tbl_order`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_order_kasir`
+--
+ALTER TABLE `tbl_order_kasir`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_pelanggan`
 --
 ALTER TABLE `tbl_pelanggan`
@@ -3849,7 +3899,13 @@ ALTER TABLE `tbl_barang`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_order_kasir`
+--
+ALTER TABLE `tbl_order_kasir`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `tbl_pelanggan`
@@ -3861,13 +3917,13 @@ ALTER TABLE `tbl_pelanggan`
 -- AUTO_INCREMENT for table `tbl_penjualan`
 --
 ALTER TABLE `tbl_penjualan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `tbl_produk`
 --
 ALTER TABLE `tbl_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3558;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3559;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`
