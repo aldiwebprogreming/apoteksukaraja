@@ -46,18 +46,25 @@
 	</div>
 </div>
 
-<div>
-	<div class="form-group">
-		<label class="label">Tunai</label>
-		<input type="text" name="tunai" id="tunai" class="form-control">
+<form method="post" action="<?= base_url('utama/cetak_struk_kasir') ?>">
+	<input type="hidden" name="kode" value="<?= $kode ?>">
+	<input type="hidden" name="total_harga" value="<?= $total['harga_total'] ?>">
+	<div>
+		<div class="form-group">
+			<label class="label">Tunai</label>
+			<input type="text" name="tunai" id="tunai" value="" class="form-control">
+		</div>
+		<div class="form-group">
+			<label class="label">Kembalian</label>
+			<input type="text" name="kembalian" id="kembalian" value="" class="form-control">
+		</div>
 	</div>
-	<div class="form-group">
-		<label class="label">Kembalian</label>
-		<input type="text" name="kembalian" id="kembalian" class="form-control">
-	</div>
-</div>
 
-<a href="<?= base_url('utama/cetak_bukti_kasir?kode=') ?><?= $kode ?>" class="btn btn-success btn-block" id="cetak">Cetak Bukti</a>
+	<button type="submit" class="btn btn-success btn-block">Cetak Struk</button>
+	
+	<!-- <a href="<?= base_url('utama/cetak_bukti_kasir?kode=') ?><?= $kode ?>" class="btn btn-success btn-block" id="cetak">Cetak Bukti</a> -->
+
+</form>
 
 <script>
 	$(document).ready(function(){

@@ -857,10 +857,42 @@
 			$data['kode'] = $this->session->kode;
 
 			$this->load->view('apotek/list_kasir', $data);
+		}
+
+		function cetak_struk_kasir(){
+
+			$data = [
+				'kode' => $this->input->post('kode'),
+				'total_harga' => $this->input->post('total_harga'),
+				'tunai' => $this->input->post('tunai'),
+				'kembalian' => $this->input->post('kembalian'),				
+			];
+
+			$input = $this->db->insert('tbl_pembelian_kasir', $data);
+			if ($input) {
+				
+
+				$kode = $this->input->post('kode');
+
+				$this->db->select_sum('harga_total');
+				$data['total'] = $this->db->get_where('tbl_order_kasir',['kode' => $kode])->row_array();
+
+				$data['kembalian'] = $this->db->get_where('tbl_pembelian_kasir',['kode' => $kode])->row_array();
 
 
+				$data['list'] = $this->db->get_where('tbl_order_kasir',['kode' => $kode])->result_array();
+				$this->load->view('apotek/cetak_order_kasir', $data);
 
+				$customPaper = array(0,0,260,400);
+				$paper_size = "A4";
+				$orientatation = "Landscape";
+				$html = $this->output->get_output();
 
+				$this->dompdf->set_paper($customPaper);
+				$this->dompdf->load_html($html);
+				$this->dompdf->render();
+				$this->dompdf->stream("cetak_order_kasir.pdf", array('Attachment' => 0));
+			}
 		}
 
 
