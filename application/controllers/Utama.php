@@ -778,7 +778,7 @@
 
 		function kasir() {
 
-			$data['produk'] = $this->db->get('tbl_produk')->result_array();
+			$data['produk'] = $this->db->get('tbl_produk',100)->result_array();
 			$kode = rand(0,1000);
 			$kode = [
 				'kode' => rand(0,1000),
@@ -842,9 +842,30 @@
 			$this->dompdf->stream("cetak_order_kasir.pdf", array('Attachment' => 0));
 		}
 
+		function hapus_kasir(){
+
+			$id = $this->input->get('id');
+
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_order_kasir');
+
+			$data['list'] = $this->db->get_where('tbl_order_kasir',['kode' => $this->session->kode])->result_array();
+
+			$this->db->select_sum('harga_total');
+			$data['total'] = $this->db->get_where('tbl_order_kasir',['kode' => $this->session->kode])->row_array();
+
+			$data['kode'] = $this->session->kode;
+
+			$this->load->view('apotek/list_kasir', $data);
+
+
+
+
+		}
+
 
 
 
 	}
 
-?>
+	?>
