@@ -796,10 +796,8 @@
 			$id = $this->input->get('id');
 			$qty = $this->input->get('qty');
 			$get = $this->db->get_where('tbl_produk', ['id' => $id])->row_array();
-			
-			$total_harga = $get['harga_jual'] * $qty;
-
-			
+			$harga = str_replace(".", "", $get['harga_jual']);
+			$total_harga = $harga * $qty;
 
 
 			$data = [
@@ -807,7 +805,7 @@
 				'nama_barang' => $get['nama_produk'],
 				'harga' => $get['harga_jual'],
 				'qty' => $qty,
-				'harga_total' => $total_harga.'000',
+				'harga_total' => $total_harga,
 				'total' => ''
 			];
 
@@ -895,9 +893,15 @@
 			}
 		}
 
+		function test(){
+			$a = '4.500' * 2;
+			echo $a;
+
+		}
+
 
 
 
 	}
 
-	?>
+?>
