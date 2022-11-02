@@ -181,7 +181,7 @@
      $diskon = '50';
      $persen = $diskon / 100;
      $potongan = $harga * $persen;
-     // echo $potongan;
+     echo $potongan;
 
      ?>
      <button class="btn btn-primary btn-block mt-3">Cetak Faktur <i class="fas fa-file"></i></button>
